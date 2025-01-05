@@ -1,0 +1,171 @@
+version: '3.9'
+
+networks:
+  no-internet:
+    internal: true
+  custom-network:
+    driver: bridge
+
+volumes:
+  comfyui-inputs:
+  ollama:
+  open-webui:
+  portainer_data:
+
+services:
+  dns:
+    build:
+      context: https://github.com/veka-server/docker-dns.git#main
+    container_name: dns
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    networks:
+      - custom-network
+    restart: unless-stopped
+
+  comfyui:
+    build:
+      context: https://github.com/veka-server/docker-comfyui.git#main
+    container_name: comfyui
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - VNC_PASSWORD=5555
+    ports:
+      - "8188:8188"
+    volumes:
+      - /home/veka/models/checkpoints:/app/comfyui/models/checkpoints
+      - /home/veka/models/clip:/app/comfyui/models/clip
+      - /home/veka/models/clip_vision:/app/comfyui/models/clip_vision
+      - /home/veka/models/unet:/app/comfyui/models/unet
+      - /home/veka/models/vae:/app/comfyui/models/vae
+      - /home/veka/models/loras:/app/comfyui/models/loras
+      - /home/veka/models/upscale_models:/app/comfyui/models/upscale_models
+      - /home/veka/models/controlnet:/app/comfyui/models/controlnet
+      - /home/veka/models/output:/app/comfyui/output
+      - comfyui-inputs:/app/comfyui/input:rw
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  viewcomfy:
+    build:
+      context: https://github.com/veka-server/ViewComfy.git#main
+    container_name: viewcomfy
+    environment:
+      - COMFYUI_BASE_URL=comfyui
+      - COMFYUI_PORT=8188
+      - NEXT_PUBLIC_VIEW_MODE=false
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/veka/view_comfy.json:/app/view_comfy.json
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - OLLAMA_KEEP_ALIVE=0
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    networks:
+      - no-internet
+      - custom-network
+    restart: unless-stopped
+
+  open-webui-standalone:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui-standalone
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - ENABLE_OPENAI_API=0
+      - HF_HUB_OFFLINE=1
+      - OFFLINE_MODE=1
+      - AUDIO_TTS_ENGINE=openai
+      - AUDIO_TTS_MODEL=tts-1-hd
+      - AUDIO_TTS_OPENAI_API_BASE_URL=http://openedai-speech:8000/v1
+      - AUDIO_TTS_OPENAI_API_KEY=sk-111111111
+      - AUDIO_TTS_VOICE=alloy
+    volumes:
+      - open-webui:/app/backend/data
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  explorer:
+    image: hurlenko/filebrowser
+    container_name: explorer
+    user: "${UID}:${GID}"
+    environment:
+      - FB_BASEURL=/filebrowser
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/veka:/data/veka
+      - /CONFIG_DIR:/config
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  nginx-reverse-proxy:
+    build:
+      context: https://github.com/veka-server/docker-nginx-reverse-proxy.git#main
+    container_name: nginx-reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - no-internet
+      - custom-network
+    restart: unless-stopped
+
+  openedai-speech:
+    image: ghcr.io/matatonic/openedai-speech
+    container_name: openedai-speech
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - EXTRA_ARGS=--unload-timer=10
+    volumes:
+      - /home/veka/openedai/voices:/app/voices
+      - /home/veka/openedai/config:/app/config
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "8000:8000"
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - no-internet
+      - custom-network
+    restart: unless-stopped
