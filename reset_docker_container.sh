@@ -11,7 +11,7 @@ docker stop $(docker ps -a -q);
 docker rm $(docker ps -a -q); 
 
 # supprime tout les volumes
-docker volume prune -y; 
+docker volume prune -f; 
 
 # telecharge le docker-compose.yml
 
