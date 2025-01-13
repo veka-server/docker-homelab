@@ -84,6 +84,7 @@ Configurez Docker pour utiliser le GPU en activant les paramètres nécessaires 
 
 
 
-
+install the meta package cuda-drivers
+it will install all packages. nvidia-smi binary also has moved from nvidia-smi to the nvidia-cuda-driver package.
 
 
