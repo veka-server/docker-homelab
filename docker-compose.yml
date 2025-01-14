@@ -73,12 +73,12 @@ services:
   ollama:
     image: ollama/ollama
     container_name: ollama
-      build:
-        context: .
-        dockerfile: Dockerfile
-        args:
-          VERSION: noavx
-          CUSTOM_CPU_FLAGS: ""
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VERSION: noavx
+        CUSTOM_CPU_FLAGS: ""
     deploy:
       resources:
         reservations:
