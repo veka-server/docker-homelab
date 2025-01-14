@@ -78,7 +78,7 @@ services:
       dockerfile: Dockerfile
       args:
         VERSION: noavx
-        CUSTOM_CPU_FLAGS: "cuda_v12"
+        CUSTOM_CPU_FLAGS: ""
     deploy:
       resources:
         reservations:
