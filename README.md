@@ -89,4 +89,6 @@ Configurez Docker pour utiliser le GPU en activant les paramètres nécessaires 
 
 
 5.4 Stress test GPU
+```bash
  docker run --gpus all --rm oguzpastirmaci/gpu-burn 60
+```
