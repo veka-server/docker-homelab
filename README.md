@@ -63,7 +63,12 @@ sudo add-apt-repository contrib non-free-firmware
 curl -fSsL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/3bf863cc.pub | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-drivers.gpg
 echo 'deb [signed-by=/usr/share/keyrings/nvidia-drivers.gpg] https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/ /' | sudo tee /etc/apt/sources.list.d/nvidia-drivers.list
 sudo apt-get update
-sudo apt-get install -y nvidia-driver nvidia-smi nvidia-settings
+#sudo apt-get install -y nvidia-driver nvidia-smi nvidia-settings
+
+# install the meta package cuda-drivers
+# it will install all packages. nvidia-smi binary also has moved from nvidia-smi to the nvidia-cuda-driver package.
+sudo apt-get -y install cuda-drivers
+
 sudo systemctl reboot
 ```
 
@@ -83,8 +88,5 @@ sudo systemctl restart docker
 Configurez Docker pour utiliser le GPU en activant les paramètres nécessaires dans vos configurations de conteneurs.
 
 
-
-install the meta package cuda-drivers
-it will install all packages. nvidia-smi binary also has moved from nvidia-smi to the nvidia-cuda-driver package.
-
-
+5.4 Stress test GPU
+ docker run --gpus all --rm oguzpastirmaci/gpu-burn 60
