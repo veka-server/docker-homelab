@@ -71,7 +71,7 @@ services:
     restart: unless-stopped
 
   ollama:
-    image: ollama/ollama
+    image: ollama-noavx
     container_name: ollama
     build:
       context: .
