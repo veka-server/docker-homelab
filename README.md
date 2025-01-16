@@ -92,3 +92,8 @@ Configurez Docker pour utiliser le GPU en activant les paramètres nécessaires 
 ```bash
  docker run --gpus all --rm oguzpastirmaci/gpu-burn 60
 ```
+
+5.5 compile ollama sans support AVX
+```bash
+DOCKER_BUILDKIT=1 docker build --build-arg VERSION=noavx --build-arg CUSTOM_CPU_FLAGS= --build-arg OLLAMA_SKIP_ROCM_GENERATE=1 --build-arg OLLAMA_FAST_BUILD=1 --platform=linux/amd64 -t ollama-noavx .
+```
