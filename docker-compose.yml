@@ -31,7 +31,7 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - no-internet
+      - custom-network
     restart: unless-stopped
 
   comfyui:
