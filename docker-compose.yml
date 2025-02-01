@@ -24,6 +24,16 @@ services:
       - custom-network
     restart: unless-stopped
 
+  florence-promptgen:
+    build:
+      context: https://github.com/veka-server/docker-Florence-2-large-PromptGen-v2.0.git#main
+    container_name: florence-promptgen
+    ports:
+      - "5000:5000"
+    networks:
+      - no-internet
+    restart: unless-stopped
+
   comfyui:
     build:
       context: https://github.com/veka-server/docker-comfyui.git#main
