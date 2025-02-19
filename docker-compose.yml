@@ -59,6 +59,8 @@ services:
       - /home/veka/models/upscale_models:/app/comfyui/models/upscale_models
       - /home/veka/models/controlnet:/app/comfyui/models/controlnet
       - /home/veka/models/output:/app/comfyui/output
+      - /home/veka/models/diffusion_models:/app/comfyui/models/diffusion_models
+      - /home/veka/models/text_encoders:/app/comfyui/models/text_encoders
       - comfyui-inputs:/app/comfyui/input:rw
     networks:
       - no-internet
