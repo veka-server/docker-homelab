@@ -83,7 +83,7 @@ services:
     restart: unless-stopped
 
   ollama:
-    image: ollama-noavx
+    image: vekaserver/ollama-noavx
     container_name: ollama
     deploy:
       resources:
