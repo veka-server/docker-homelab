@@ -13,6 +13,14 @@ volumes:
   portainer_data:
 
 services:
+
+  downloader:
+    image: alpine
+    volumes:
+      - /home/veka/models/unet:/unet
+    command: >
+      sh -c "apk add --no-cache wget && wget -O /unet/flux1-dev-Q8_0.gguf https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf?download=true"
+  
   dns:
     build:
       context: https://github.com/veka-server/docker-dns.git#main
