@@ -73,6 +73,8 @@ services:
     networks:
       - no-internet
     restart: unless-stopped
+    depends_on:
+      - downloader
 
   viewcomfy:
     build:
