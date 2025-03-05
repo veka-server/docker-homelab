@@ -76,6 +76,7 @@ services:
       - /home/veka/models/diffusion_models:/app/comfyui/models/diffusion_models
       - /home/veka/models/text_encoders:/app/comfyui/models/text_encoders
       - comfyui-inputs:/app/comfyui/input:rw
+      - /home/veka/models/workflow:/app/comfyui/user/default/workflows
     networks:
       - no-internet
     restart: unless-stopped
