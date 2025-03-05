@@ -19,6 +19,7 @@ services:
       - /home/veka/models/clip:/clip
       - /home/veka/models/vae:/vae
       - /home/veka/models/diffusion_models:/diffusion_models
+      - /home/veka/models/text_encoders:/text_encoders
     command: >
       sh -c "apk add --no-cache wget \
       && [ -f /unet/flux1-dev-Q8_0.gguf ] ||  wget -O /unet/flux1-dev-Q8_0.gguf https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf?download=true \
@@ -28,8 +29,8 @@ services:
       && [ -f /vae/flux_vae.safetensors ] ||  wget -O /vae/flux_vae.safetensors https://huggingface.co/foxmail/flux_vae/resolve/main/ae.safetensors?download=true \
       && [ -f /vae/hunyuan_video_vae_bf16.safetensors ] ||  wget -O /vae/hunyuan_video_vae_bf16.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/vae/hunyuan_video_vae_bf16.safetensors?download=true \
       && [ -f /diffusion_models/hunyuan_video_t2v_720p_bf16.safetensors ] ||  wget -O /diffusion_models/hunyuan_video_t2v_720p_bf16.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/diffusion_models/hunyuan_video_t2v_720p_bf16.safetensors?download=true \
-      && [ -f /clip/hunyuan_video_t2v_720p_bf16.safetensors ] ||  wget -O /clip/hunyuan_video_clip_l.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/clip_l.safetensors?download=true \
-      && [ -f /clip/llava_llama3_fp8_scaled.safetensors ] ||  wget -O /clip/llava_llama3_fp8_scaled.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/llava_llama3_fp8_scaled.safetensors?download=true \
+      && [ -f /text_encoders/hunyuan_video_t2v_720p_bf16.safetensors ] ||  wget -O /text_encoders/hunyuan_video_clip_l.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/clip_l.safetensors?download=true \
+      && [ -f /text_encoders/llava_llama3_fp8_scaled.safetensors ] ||  wget -O /text_encoders/llava_llama3_fp8_scaled.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/llava_llama3_fp8_scaled.safetensors?download=true \
       "
   
   dns:
