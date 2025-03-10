@@ -20,6 +20,7 @@ services:
       - /home/veka/models/vae:/vae
       - /home/veka/models/diffusion_models:/diffusion_models
       - /home/veka/models/text_encoders:/text_encoders
+      - /home/veka/models/clip_vision:/clip_vision
     command: >
       sh -c "apk add --no-cache wget \
       && [ -f /unet/flux1-dev-Q8_0.gguf ] ||  wget -O /unet/flux1-dev-Q8_0.gguf https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf?download=true \
