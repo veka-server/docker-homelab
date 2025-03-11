@@ -34,8 +34,9 @@ services:
       && [ -f /text_encoders/llava_llama3_fp8_scaled.safetensors ] ||  wget -O /text_encoders/llava_llama3_fp8_scaled.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/llava_llama3_fp8_scaled.safetensors?download=true \
       && [ -f /diffusion_models/hunyuan_video_v2_replace_image_to_video_720p_bf16.safetensorss ] ||  wget -O /diffusion_models/hunyuan_video_v2_replace_image_to_video_720p_bf16.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/diffusion_models/hunyuan_video_v2_replace_image_to_video_720p_bf16.safetensors?download=true \
       && [ -f /clip_vision/llava_llama3_vision.safetensors ] ||  wget -O /clip_vision/llava_llama3_vision.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/clip_vision/llava_llama3_vision.safetensors?download=true \
+      && [ -f /unet/hunyuan_video_I2V-Q8_0.gguf ] ||  wget -O /unet/hunyuan_video_I2V-Q8_0.gguf https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_I2V-Q8_0.gguf?download=true \
       "
-  
+        
   dns:
     build:
       context: https://github.com/veka-server/docker-dns.git#main
