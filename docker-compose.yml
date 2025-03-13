@@ -31,8 +31,8 @@ services:
       && [ -f /models/clip_vision/llava_llama3_vision.safetensors ] ||  wget -nv -O /models/clip_vision/llava_llama3_vision.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/clip_vision/llava_llama3_vision.safetensors?download=true \
       && [ -f /models/unet/hunyuan_video_I2V-Q8_0.gguf ] ||  wget -nv -O /models/unet/hunyuan_video_I2V-Q8_0.gguf https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_I2V-Q8_0.gguf?download=true \
       && if [ -d "/models/clip/siglip-so400m-patch14-384/.git" ]; then git -C /models/clip/siglip-so400m-patch14-384 pull; else git clone https://huggingface.co/google/siglip-so400m-patch14-384 /clip/siglip-so400m-patch14-384; fi \
-      && if [ -d "/models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit/.git" ]; then git -C /models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit pull; else git clone https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit  /models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit ; fi \
-      && if [ -d "/models/joy-caption-two/.git" ]; then git -C /models/joy-caption-two pull; else git clone https://huggingface.co/aiden1130/joy-caption-alpha-two joy-caption-two  /models/joy-caption-two ; fi \
+      && if [ -d "/models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit/.git" ]; then git -C /models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit pull; else git clone https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit /models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit ; fi \
+      && if [ -d "/models/joy-caption-two/.git" ]; then git -C /models/joy-caption-two pull; else git clone https://huggingface.co/aiden1130/joy-caption-alpha-two /models/joy-caption-two ; fi \
       "
   dns:
     build:
