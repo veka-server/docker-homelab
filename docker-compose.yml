@@ -82,7 +82,7 @@ services:
       - /home/veka/models/output:/app/comfyui/output
       - /home/veka/models/diffusion_models:/app/comfyui/models/diffusion_models
       - /home/veka/models/text_encoders:/app/comfyui/models/text_encoders
-      - /home/veka/models/Joy-caption-two:/app/comfyui/models/Joy-caption-two
+      - /home/veka/models/Joy_caption_two:/app/comfyui/models/Joy_caption_two
       - comfyui-inputs:/app/comfyui/input:rw
       - /home/veka/models/workflow:/app/comfyui/user/default/workflows
     networks:
