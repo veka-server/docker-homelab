@@ -80,6 +80,7 @@ services:
       - /home/veka/models/upscale_models:/app/comfyui/models/upscale_models
       - /home/veka/models/controlnet:/app/comfyui/models/controlnet
       - /home/veka/models/output:/app/comfyui/output
+      - /home/veka/models/LLM:/app/comfyui/LLM
       - /home/veka/models/diffusion_models:/app/comfyui/models/diffusion_models
       - /home/veka/models/text_encoders:/app/comfyui/models/text_encoders
       - /home/veka/models/Joy_caption_two/cgrkzexw-599808:/app/comfyui/models/Joy_caption_two
