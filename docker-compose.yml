@@ -21,6 +21,7 @@ services:
       - /home/veka/models/diffusion_models:/diffusion_models
       - /home/veka/models/text_encoders:/text_encoders
       - /home/veka/models/clip_vision:/clip_vision
+      - /home/veka/models/LLM:/LLM
     command: >
       sh -c "apk add --no-cache wget git \
       && [ -f /unet/flux1-dev-Q8_0.gguf ] ||  wget --progress=dot:giga -O /unet/flux1-dev-Q8_0.gguf https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf?download=true \
@@ -36,8 +37,8 @@ services:
       && [ -f /clip_vision/llava_llama3_vision.safetensors ] ||  wget --progress=dot:giga -O /clip_vision/llava_llama3_vision.safetensors https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/clip_vision/llava_llama3_vision.safetensors?download=true \
       && [ -f /unet/hunyuan_video_I2V-Q8_0.gguf ] ||  wget --progress=dot:giga -O /unet/hunyuan_video_I2V-Q8_0.gguf https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_I2V-Q8_0.gguf?download=true \
       && if [ -d "/clip/siglip-so400m-patch14-384/.git" ]; then git -C /clip/siglip-so400m-patch14-384 pull; else git clone https://huggingface.co/google/siglip-so400m-patch14-384 /clip/siglip-so400m-patch14-384; fi \
+      && if [ -d "/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit/.git" ]; then git -C /LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit pull; else git clone https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit  /LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit ; fi \
       "
-        
   dns:
     build:
       context: https://github.com/veka-server/docker-dns.git#main
