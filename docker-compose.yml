@@ -32,7 +32,7 @@ services:
       && [ -f /models/unet/hunyuan_video_I2V-Q8_0.gguf ] ||  wget -nv -O /models/unet/hunyuan_video_I2V-Q8_0.gguf https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_I2V-Q8_0.gguf?download=true \
       && if [ -d "/models/clip/siglip-so400m-patch14-384/.git" ]; then git -C /models/clip/siglip-so400m-patch14-384 pull; else git clone https://huggingface.co/google/siglip-so400m-patch14-384 /clip/siglip-so400m-patch14-384; fi \
       && if [ -d "/models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit/.git" ]; then git -C /models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit pull; else git clone https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit /models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit ; fi \
-      && if [ -d "/models/joy-caption-two/.git" ]; then git -C /models/joy-caption-two pull; else git clone https://huggingface.co/aiden1130/joy-caption-alpha-two /models/joy-caption-two ; fi \
+      && if [ -d "/models/Joy-caption-two/.git" ]; then git -C /models/Joy-caption-two pull; else git clone https://huggingface.co/aiden1130/joy-caption-alpha-two /models/Joy-caption-two ; fi \
       "
   dns:
     build:
@@ -82,6 +82,7 @@ services:
       - /home/veka/models/output:/app/comfyui/output
       - /home/veka/models/diffusion_models:/app/comfyui/models/diffusion_models
       - /home/veka/models/text_encoders:/app/comfyui/models/text_encoders
+      - /home/veka/models/Joy-caption-two:/app/comfyui/models/Joy-caption-two
       - comfyui-inputs:/app/comfyui/input:rw
       - /home/veka/models/workflow:/app/comfyui/user/default/workflows
     networks:
