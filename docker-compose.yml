@@ -177,7 +177,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /srv/nginx-ssl:/etc/nginx/ssl
+      - /home/veka/nginx-ssl:/etc/nginx/ssl
     networks:
       - no-internet
       - custom-network
