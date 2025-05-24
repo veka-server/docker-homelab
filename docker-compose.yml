@@ -40,6 +40,9 @@ services:
       && if [ -d "/models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit/.git" ]; then git -C /models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit pull; else git clone https://huggingface.co/unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit /models/LLM/Meta-Llama-3.1-8B-Instruct-bnb-4bit ; fi \
       && if [ -d "/models/Joy_caption_two/.git" ]; then git -C /models/Joy_caption_two pull; else git clone  https://huggingface.co/spaces/fancyfeast/joy-caption-alpha-two /models/Joy_caption_two ; fi \
       && [ -f /models/checkpoints/ace_step_v1_3.5b.safetensors ] ||  wget -nv -O /models/checkpoints/ace_step_v1_3.5b.safetensors https://huggingface.co/Comfy-Org/ACE-Step_ComfyUI_repackaged/resolve/main/all_in_one/ace_step_v1_3.5b.safetensors?download=true \
+      && [ -f /models/unet/Wan2.1-VACE-14B-Q4_K_S.gguf ] ||  wget -nv -O /models/unet/Wan2.1-VACE-14B-Q4_K_S.gguf https://huggingface.co/Aitrepreneur/FLX/resolve/main/Wan2.1-VACE-14B-Q4_K_S.gguf?download=true \
+      && [ -f /models/loras/Wan21_CausVid_14B_T2V_lora_rank32.safetensors ] ||  wget -nv -O /models/loras/Wan21_CausVid_14B_T2V_lora_rank32.safetensors https://huggingface.co/Aitrepreneur/FLX/resolve/main/Wan21_CausVid_14B_T2V_lora_rank32.safetensors?download=true \
+      && [ -f /models/vae/wan_2.1_vae.safetensors ] ||  wget -nv -O /models/vae/wan_2.1_vae.safetensors https://huggingface.co/Aitrepreneur/FLX/resolve/main/wan_2.1_vae.safetensors?download=true \
       "
   dns:
     build:
