@@ -46,6 +46,7 @@ services:
       && [ -f /models/unet/chroma.gguf ] || wget -nv -O /models/unet/chroma.gguf https://huggingface.co/silveroxides/Chroma-GGUF/resolve/main/chroma-unlocked-v31/chroma-unlocked-v31-Q5_0.gguf \
       && [ -f /models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors ] || wget -nv -O /models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors https://huggingface.co/Aitrepreneur/FLX/resolve/main/umt5_xxl_fp8_e4m3fn_scaled.safetensors \
       && [ -f /models/checkpoints/ema-fp8.safetensors ] || wget -nv -O /models/checkpoints/ema-fp8.safetensors https://huggingface.co/boricuapab/Bagel-7B-MoT-fp8/resolve/main/ema-fp8.safetensors \
+      && [ -f /models/checkpoints/CyberIllustrious_V4.safetensors ] || wget -nv -O /models/checkpoints/CyberIllustrious_V4.safetensors https://huggingface.co/cyberdelia/CyberIllustrious/resolve/main/CyberIllustrious_V4.safetensors \
       "
   dns:
     build:
