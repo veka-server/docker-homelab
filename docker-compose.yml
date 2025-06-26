@@ -47,7 +47,8 @@ services:
       && [ -f /models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors ] || wget -nv -O /models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors https://huggingface.co/Aitrepreneur/FLX/resolve/main/umt5_xxl_fp8_e4m3fn_scaled.safetensors \
       && [ -f /models/checkpoints/ema-fp8.safetensors ] || wget -nv -O /models/checkpoints/ema-fp8.safetensors https://huggingface.co/boricuapab/Bagel-7B-MoT-fp8/resolve/main/ema-fp8.safetensors \
       && [ -f /models/checkpoints/CyberIllustrious_V4.safetensors ] || wget -nv -O /models/checkpoints/CyberIllustrious_V4.safetensors https://huggingface.co/cyberdelia/CyberIllustrious/resolve/main/CyberIllustrious_V4.safetensors \
-      && [ -f /models/checkpoints/flux1-dev-kontext_fp8_scaled.safetensors ] || wget -nv -O /models/checkpoints/flux1-dev-kontext_fp8_scaled.safetensors https://huggingface.co/Comfy-Org/flux1-kontext-dev_ComfyUI/resolve/main/split_files/diffusion_models/flux1-dev-kontext_fp8_scaled.safetensors \      "
+      && [ -f /models/unet/flux1-kontext-dev-Q6_K.gguf ] || wget -nv -O /models/unet/flux1-kontext-dev-Q6_K.gguf https://huggingface.co/bullerwins/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q6_K.gguf \      
+      "
   dns:
     build:
       context: https://github.com/veka-server/docker-dns.git#main
