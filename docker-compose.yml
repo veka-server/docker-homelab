@@ -9,6 +9,7 @@ volumes:
   ollama:
   open-webui:
   portainer_data:
+  immich-model-cache:
 
 services:
 
@@ -298,6 +299,3 @@ services:
       - no-internet
       - custom-network
 
-
-volumes:
-  immich-model-cache:
