@@ -250,7 +250,6 @@ services:
       disable: false
     networks:
       - no-internet
-      - custom-network
 
   immich-machine-learning:
     container_name: immich_machine_learning
@@ -269,7 +268,6 @@ services:
       disable: false
     networks:
       - no-internet
-      - custom-network
 
   redis:
     container_name: immich_redis
@@ -279,7 +277,6 @@ services:
     restart: always
     networks:
       - no-internet
-      - custom-network
       
   database:
     container_name: immich_postgres
@@ -298,5 +295,4 @@ services:
     restart: always
     networks:
       - no-internet
-      - custom-network
 
