@@ -307,4 +307,4 @@ services:
     ports:
       - '8123:8123'
     networks:
-      - no-internet
+      - custom-network
