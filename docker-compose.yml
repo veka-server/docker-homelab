@@ -10,7 +10,8 @@ volumes:
   open-webui:
   portainer_data:
   immich-model-cache:
-  hyphanet_data: hyphanet_data
+  hyphanet_data:
+    external: true
 
 services:
 
