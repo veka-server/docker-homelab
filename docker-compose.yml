@@ -127,13 +127,10 @@ services:
       - ENABLE_OPENAI_API=0
       - HF_HUB_OFFLINE=1
       - OFFLINE_MODE=1
-    ports:
-      - "8080:8080"
     volumes:
       - open-webui:/app/backend/data
     networks:
       - no-internet
-      - custom-network
     restart: unless-stopped
 
   explorer:
