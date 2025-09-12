@@ -301,7 +301,11 @@ services:
 
   hyphanet:
     container_name: hyphanet
-    image: hyphanet
+    build:
+      context: https://github.com/PoulLorca/hyphanet-docker.git#main
+      args:
+        HYPHANET_VERSION: "1503"
+    image: hyphanet:latest
     restart: always
     volumes:
       - hyphanet_data:/data
