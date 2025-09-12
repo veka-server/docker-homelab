@@ -256,7 +256,5 @@ services:
     restart: always
     volumes:
       - hyphanet_data:/data
-    ports:
-      - '8123:8123'
     networks:
       - custom-network
