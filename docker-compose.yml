@@ -10,6 +10,7 @@ volumes:
   open-webui:
   portainer_data:
   immich-model-cache:
+  neko_data:
   hyphanet_data:
     external: true
 
@@ -256,3 +257,23 @@ services:
       - hyphanet_data:/data
     networks:
       - custom-network
+
+
+  neko:
+    image: ghcr.io/m1k1o/neko/firefox:latest   # ou autre application : chromium, xfce, …
+    container_name: neko
+    environment:
+      NEKO_DESKTOP_SCREEN: '1920x1080@30'
+      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
+      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      NEKO_WEBRTC_EPR: 52000-52100
+      NEKO_WEBRTC_ICELITE: 1
+    ports:
+      - "8080:8080"
+      - "52000-52100:52000-52100/udp"
+    restart: unless-stopped
+    shm_size: 2g 
+    networks:
+      - no-internet
+      - custom-network
+
