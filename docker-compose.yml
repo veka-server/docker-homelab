@@ -268,11 +268,12 @@ services:
       NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
       NEKO_WEBRTC_EPR: 52000-52100
       NEKO_WEBRTC_ICELITE: 1
+      NEKO_WEBRTC_NAT1TO1: "127.0.0.1"
     ports:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     restart: unless-stopped
-    shm_size: 2g 
+    shm_size: 4g 
     networks:
       - no-internet
       - custom-network
