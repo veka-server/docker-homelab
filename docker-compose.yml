@@ -142,8 +142,6 @@ services:
     user: "${UID}:${GID}"
     environment:
       - FB_BASEURL=/filebrowser
-    ports:
-      - "8080:8080"
     volumes:
       - /home/veka:/data/veka
       - /CONFIG_DIR:/config
