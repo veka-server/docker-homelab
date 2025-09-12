@@ -133,6 +133,7 @@ services:
       - open-webui:/app/backend/data
     networks:
       - no-internet
+      - custom-network
     restart: unless-stopped
 
   explorer:
