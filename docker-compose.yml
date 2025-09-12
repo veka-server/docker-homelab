@@ -63,16 +63,6 @@ services:
       - custom-network
     restart: unless-stopped
 
-  florence-promptgen:
-    build:
-      context: https://github.com/veka-server/docker-Florence-2-large-PromptGen-v2.0.git#main
-    container_name: florence-promptgen
-    ports:
-      - "5000:5000"
-    networks:
-      - custom-network
-    restart: unless-stopped
-
   comfyui:
     build:
       context: https://github.com/veka-server/docker-comfyui.git#main
@@ -84,8 +74,6 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-    environment:
-      - VNC_PASSWORD=5555
     ports:
       - "8188:8188"
     volumes:
@@ -109,22 +97,6 @@ services:
     restart: unless-stopped
     depends_on:
       - downloader
-
-  viewcomfy:
-    build:
-      context: https://github.com/veka-server/ViewComfy.git#main
-    container_name: viewcomfy
-    environment:
-      - COMFYUI_BASE_URL=comfyui
-      - COMFYUI_PORT=8188
-      - NEXT_PUBLIC_VIEW_MODE=false
-    ports:
-      - "3000:3000"
-    volumes:
-      - /home/veka/view_comfy.json:/app/view_comfy.json
-    networks:
-      - no-internet
-    restart: unless-stopped
 
   ollama:
     image: ollama/ollama
@@ -193,25 +165,6 @@ services:
     networks:
       - no-internet
       - custom-network
-    restart: unless-stopped
-
-  openedai-speech:
-    image: ghcr.io/matatonic/openedai-speech
-    container_name: openedai-speech
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-    environment:
-      - EXTRA_ARGS=--unload-timer=10
-    volumes:
-      - /home/veka/openedai/voices:/app/voices
-      - /home/veka/openedai/config:/app/config
-    networks:
-      - no-internet
     restart: unless-stopped
 
   portainer:
