@@ -128,7 +128,7 @@ services:
       - HF_HUB_OFFLINE=1
       - OFFLINE_MODE=1
     ports:
-      - "3000:3000"
+      - "8080:8080"
     volumes:
       - open-webui:/app/backend/data
     networks:
