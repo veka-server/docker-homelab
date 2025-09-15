@@ -22,8 +22,8 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    # Vérifie toutes les 300 secondes (5minutes) et supprime les anciennes images
-    command: --interval 300 --cleanup
+    # Vérifie toutes les 3600 secondes (1 heure) et supprime les anciennes images
+    command: --interval 3600 --cleanup
 
   docker-download-models:
     image: ghcr.io/veka-server/docker-download-models:latest
