@@ -136,7 +136,7 @@ services:
   explorer:
     image: hurlenko/filebrowser
     container_name: explorer
-    user: "${UID}:${GID}"
+#    user: "${UID}:${GID}"
     environment:
       - FB_BASEURL=/filebrowser
     volumes:
