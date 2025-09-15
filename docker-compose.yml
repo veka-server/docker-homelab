@@ -16,6 +16,15 @@ volumes:
 
 services:
 
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # Vérifie toutes les 1800 seconds et supprime les anciennes images
+    command: --interval 1800 --cleanup
+
   downloader:
     image: alpine
     volumes:
