@@ -118,8 +118,7 @@ services:
     restart: unless-stopped
 
   nginx-reverse-proxy:
-    build:
-      context: https://github.com/veka-server/docker-nginx-reverse-proxy.git#main
+    image: ghcr.io/veka-server/docker-nginx-reverse-proxy:latest
     container_name: nginx-reverse-proxy
     ports:
       - "80:80"
