@@ -30,7 +30,6 @@ services:
     container_name: docker-download-models
     volumes:
       - /home/veka/models:/models
-      - /var/run/docker.sock:/var/run/docker.sock  # nécessaire pour supprimer le conteneur
 
   dns:
     build:
