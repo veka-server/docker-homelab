@@ -74,7 +74,7 @@ services:
       - no-internet
     restart: unless-stopped
     depends_on:
-      - downloader
+      - docker-download-models
 
   ollama:
     image: ollama/ollama:latest
