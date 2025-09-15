@@ -25,7 +25,7 @@ services:
     # Vérifie toutes les 300 secondes (5minutes) et supprime les anciennes images
     command: --interval 300 --cleanup
 
-  downloader:
+  docker-download-models:
     image: ghcr.io/veka-server/docker-download-models:latest
     container_name: docker-download-models
     volumes:
