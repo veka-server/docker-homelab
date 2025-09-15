@@ -26,12 +26,10 @@ services:
     command: --interval 1800 --cleanup
 
   downloader:
-    image: alpine
+    image: ghcr.io/veka-server/docker-download-models:latest
+    container_name: docker-download-models
     volumes:
       - /home/veka/models:/models
-      - ./download_models.sh:/download_models.sh
-    command: >
-      sh -c "apk add --no-cache wget git git-lfs coreutils && sh /download_models.sh"
       
   dns:
     build:
