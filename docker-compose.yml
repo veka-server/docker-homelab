@@ -268,6 +268,11 @@ services:
       OPS: "vekam"                # Admins (opérateurs)
       ONLINE_MODE: "TRUE"               # Authentification Mojang (évite besoin d’un mot de passe)
       DIFFICULTY: "normal"         # peaceful easy normal hard
+      VERSION: "1.21.8"
+      MODE: "survival"      # survival , creative, adventure, spectator
+      PVP: "true"
+      LEVEL_TYPE: "DEFAULT"    # DEFAULT, FLAT, LARGEBIOMES, AMPLIFIED, CUSTOMIZED
+      SERVER_PORT: "25565"
     volumes:
       - ./minecraft-data:/data
     restart: unless-stopped
