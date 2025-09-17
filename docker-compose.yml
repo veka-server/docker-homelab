@@ -264,7 +264,7 @@ services:
       MAX_PLAYERS: "20"                 # Nombre max de joueurs
       MOTD: "Serveur Veka"  # Nom affiché dans la liste
       ENFORCE_WHITELIST: "TRUE"         # Force la whitelist
-      WHITELIST: "vekam,EmilieJasmine"      # Liste des comptes autorisés
+      WHITELIST: "vekam,EmilieJasmine14"      # Liste des comptes autorisés
       OPS: "vekam"                # Admins (opérateurs)
       ONLINE_MODE: "TRUE"               # Authentification Mojang (évite besoin d’un mot de passe)
       DIFFICULTY: "normal"         # peaceful easy normal hard
