@@ -1,4 +1,4 @@
-amnetworks:
+networks:
   no-internet:
     internal: true
   custom-network:
