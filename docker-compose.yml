@@ -1,4 +1,4 @@
-networks:
+amnetworks:
   no-internet:
     internal: true
   custom-network:
@@ -264,8 +264,8 @@ services:
       MAX_PLAYERS: "20"                 # Nombre max de joueurs
       MOTD: "Serveur Veka"  # Nom affiché dans la liste
       ENFORCE_WHITELIST: "TRUE"         # Force la whitelist
-      WHITELIST: "vekastelartest"      # Liste des comptes autorisés
-      OPS: "vekastelar"                # Admins (opérateurs)
+      WHITELIST: "vekam"      # Liste des comptes autorisés
+      OPS: "vekam"                # Admins (opérateurs)
       ONLINE_MODE: "TRUE"               # Authentification Mojang (évite besoin d’un mot de passe)
       DIFFICULTY: "normal"         # peaceful easy normal hard
     volumes:
