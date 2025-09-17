@@ -254,3 +254,20 @@ services:
       - no-internet
       - custom-network
 
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      MAX_PLAYERS: "20"                 # Nombre max de joueurs
+      MOTD: "Serveur Veka"  # Nom affiché dans la liste
+      ENFORCE_WHITELIST: "TRUE"         # Force la whitelist
+      WHITELIST: "vekastelartest"      # Liste des comptes autorisés
+      OPS: "vekastelar"                # Admins (opérateurs)
+      ONLINE_MODE: "TRUE"               # Authentification Mojang (évite besoin d’un mot de passe)
+      DIFFICULTY: "normal"         # peaceful easy normal hard
+    volumes:
+      - ./minecraft-data:/data
+    restart: unless-stopped
