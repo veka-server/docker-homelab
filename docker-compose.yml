@@ -262,7 +262,7 @@ services:
       - --bind-interfaces
     restart: unless-stopped
     networks:
-      ustom-network: # accees internet
+      custom-network: # accees internet
       no-internet:
         ipv4_address: 172.19.0.13  # ip sans accees internet
       
