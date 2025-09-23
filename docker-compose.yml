@@ -236,7 +236,7 @@ services:
 
 
   neko:
-    image: ghcr.io/m1k1o/neko/firefox:latest   # ou autre application : chromium, xfce, …
+    image: ghcr.io/m1k1o/neko/nvidia-brave:latest
     container_name: neko
     environment:
       NEKO_DESKTOP_SCREEN: '1920x1080@30'
@@ -248,11 +248,19 @@ services:
     ports:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     restart: unless-stopped
-    shm_size: 4g 
+    shm_size: 4g
     networks:
       - no-internet
       - custom-network
+
 
   minecraft:
     image: itzg/minecraft-server:latest
