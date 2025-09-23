@@ -274,12 +274,12 @@ services:
     container_name: brave
     ports:
       - "6901:8080"
-      - "5000:5000/udp"
+      - "5001:5001/udp"
     environment:  
       NEKO_WEBRTC_NAT1TO1: "192.168.1.119"
       NEKO_MEMBER_MULTIUSER_USER_PASSWORD: "neko"  
       NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: "admin"
-      NEKO_WEBRTC_EPR: 52000-52100
+#      NEKO_WEBRTC_EPR: 52000-52100
       NEKO_WEBRTC_ICELITE: 1
     restart: unless-stopped
     shm_size: 24g                  # pour un rendu graphique fluide
