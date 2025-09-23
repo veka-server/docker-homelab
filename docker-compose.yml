@@ -285,6 +285,7 @@ services:
     shm_size: 4g                  # pour un rendu graphique fluide
     networks:
       - no-internet
+      - custom-network
     dns:
       - 172.19.0.13  
       
