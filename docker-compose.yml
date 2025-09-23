@@ -246,7 +246,7 @@ services:
     networks:
       - no-internet         # réseau internal pour isoler
     dns:
-      - 192.168.1.182
+      - dnsrelay
 
   dnsrelay:
     image: andyshinn/dnsmasq:2.85
