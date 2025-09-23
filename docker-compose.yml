@@ -249,7 +249,7 @@ services:
     networks:
       - no-internet         # réseau internal pour isoler
     dns:
-      - 172.18.0.10
+      - 172.19.0.13
 
   dnsrelay:
     image: 4km3/dnsmasq:latest
@@ -262,10 +262,9 @@ services:
       - --bind-interfaces
     restart: unless-stopped
     networks:
-      custom-network:
-        ipv4_address: 172.18.0.10
+      - custom-network # accees internet
       no-internet:
-        ipv4_address: 172.19.0.13
+        ipv4_address: 172.19.0.13  # ip sans accees internet
       
   minecraft:
     image: itzg/minecraft-server:latest
