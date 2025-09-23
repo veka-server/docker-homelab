@@ -249,18 +249,20 @@ services:
       - dnsrelay
 
   dnsrelay:
-    image: andyshinn/dnsmasq:2.85
+    image: 4km3/dnsmasq:latest
     container_name: dnsrelay
-    restart: unless-stopped
-    command: >
-      -k
-      --no-resolv
-      --server=192.168.1.182
-      --server=8.8.8.8
-      --listen-address=0.0.0.0
+    ports:
+      - "53:53/udp"
     networks:
       - custom-network
-      
+    command:
+      - --no-daemon
+      - --log-queries
+      - --server=192.168.1.182
+      - --listen-address=0.0.0.0
+      - --bind-interfaces
+    restart: unless-stopped
+          
   minecraft:
     image: itzg/minecraft-server:latest
     container_name: minecraft
