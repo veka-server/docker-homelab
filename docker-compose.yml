@@ -245,6 +245,8 @@ services:
     shm_size: 4g
     networks:
       - no-internet         # réseau internal pour isoler
+    dns:
+      - 192.168.1.182
 
   minecraft:
     image: itzg/minecraft-server:latest
