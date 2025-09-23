@@ -237,7 +237,7 @@ services:
   brave:
     image: kasmweb/brave
     container_name: brave
-    environement:
+    environment:
       VNC_PW: password
     ports:
       - "6901:6901"
