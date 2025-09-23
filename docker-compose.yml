@@ -248,6 +248,19 @@ services:
     dns:
       - 192.168.1.182
 
+  dnsrelay:
+    image: andyshinn/dnsmasq:2.85
+    container_name: dnsrelay
+    restart: unless-stopped
+    command: >
+      -k
+      --no-resolv
+      --server=192.168.1.182
+      --server=8.8.8.8
+      --listen-address=0.0.0.0
+    networks:
+      - custom-network
+      
   minecraft:
     image: itzg/minecraft-server:latest
     container_name: minecraft
