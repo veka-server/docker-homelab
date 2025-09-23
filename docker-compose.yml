@@ -283,6 +283,10 @@ services:
       NEKO_WEBRTC_ICELITE: 1
     restart: unless-stopped
     shm_size: 4g                  # pour un rendu graphique fluide
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_ADMIN
     networks:
       - no-internet
       - custom-network
