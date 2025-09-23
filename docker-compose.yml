@@ -273,7 +273,7 @@ services:
     image: ghcr.io/m1k1o/neko/brave:latest
     container_name: brave
     ports:
-      - "8022:8080"
+      - "6901:8080"
       - "52000-52100:52000-52100/udp"
     environment:  
       NEKO_WEBRTC_NAT1TO1: "127.0.0.1"
