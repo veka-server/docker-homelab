@@ -39,8 +39,6 @@ services:
       - --bind-interfaces
       - --address=/.loc.ovh/172.19.0.11   # 👈 wildcard loc.ovh    
     restart: unless-stopped
-    ports:
-      - "53:53/udp"
     networks:
       custom-network: # accees internet
       no-internet:
