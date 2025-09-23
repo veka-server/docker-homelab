@@ -270,8 +270,15 @@ services:
 #      - 172.19.0.13
 
   brave:
-    image: ghcr.io/m1k1o/neko/brave:latest
+    image: ghcr.io/m1k1o/neko/nvidia-brave:latest
     container_name: brave
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     ports:
       - "6901:8080"
 #      - "52000:52000/udp"
