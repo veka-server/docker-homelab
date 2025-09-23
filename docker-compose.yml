@@ -290,6 +290,9 @@ services:
 #      NEKO_WEBRTC_EPR: 52000
       NEKO_WEBRTC_EPR: 52000-52100
       NEKO_WEBRTC_ICELITE: 1
+      NEKO_VIDEO_CODEC: "h264"
+      NEKO_HWENC: "nvenc"
+      
     restart: unless-stopped
     shm_size: 24g                  # pour un rendu graphique fluide
     security_opt:
