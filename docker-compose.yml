@@ -265,7 +265,7 @@ services:
       custom-network:
         ipv4_address: 172.18.0.10
       no-internet:
-        ipv4_address: 172.19.0.10
+        ipv4_address: 172.19.0.13
       
   minecraft:
     image: itzg/minecraft-server:latest
