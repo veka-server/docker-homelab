@@ -37,7 +37,7 @@ services:
       - --server=192.168.1.182
       - --listen-address=0.0.0.0
       - --bind-interfaces
-      - --address=/.loc.ovh/172.19.0.11   # 👈 wildcard loc.ovh    
+      - --address=/hub.loc.ovh/172.19.0.11   # 👈 wildcard loc.ovh    
     restart: unless-stopped
     networks:
       custom-network: # accees internet
