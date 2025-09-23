@@ -254,8 +254,6 @@ services:
   dnsrelay:
     image: 4km3/dnsmasq:latest
     container_name: dnsrelay
-    ports:
-      - "53:53/udp"
     command:
       - --no-daemon
       - --log-queries
