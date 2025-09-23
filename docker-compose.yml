@@ -358,7 +358,7 @@ services:
       - LOG_LEVEL=info
     # persistance des données (config, logs, etc.)
     volumes:
-      - ./data:/app/data
+      - ../data-bitfrost:/app/data
     # si Ollama est dans un autre container ou sur le host, selon réseau
     # peut avoir besoin de définir network etc.
     networks:
