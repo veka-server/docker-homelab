@@ -254,20 +254,36 @@ services:
     networks:
       - custom-network
 
+#  brave:
+#    image: kasmweb/brave:1.17.0-rolling-weekly
+#    container_name: brave
+#    environment:
+#      VNC_PW: password
+#      LAUNCH_URL: http://hub.loc.ovh  # optionnel si custom_startup.sh lit cette variable
+#    ports:
+#      - "6901:6901"
+#    restart: unless-stopped
+#    shm_size: 4g
+#    networks:
+#      - no-internet         # réseau internal pour isoler
+#    dns:
+#      - 172.19.0.13
+
   brave:
-    image: kasmweb/brave:1.17.0-rolling-weekly
+    image: ghcr.io/m1k1o/neko/brave:latest
     container_name: brave
     environment:
-      VNC_PW: password
-      LAUNCH_URL: http://hub.loc.ovh  # optionnel si custom_startup.sh lit cette variable
+      NEKO_PASSWORD: password     # mot de passe pour accéder au navigateur
+      NEKO_PORT: 3000             # port interne utilisé par Neko
+      # NEKO_ARGS: "--some-option" # optionnel pour config personnalisée
     ports:
-      - "6901:6901"
+      - "6901:3000"               # accessible depuis le navigateur à localhost:6901
     restart: unless-stopped
-    shm_size: 4g
+    shm_size: 4g                  # pour un rendu graphique fluide
     networks:
-      - no-internet         # réseau internal pour isoler
+      - no-internet
     dns:
-      - 172.19.0.13
+      - 172.19.0.13  
       
   minecraft:
     image: itzg/minecraft-server:latest
