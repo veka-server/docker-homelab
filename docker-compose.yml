@@ -234,33 +234,17 @@ services:
     networks:
       - custom-network
 
-
-  neko:
-    image: ghcr.io/m1k1o/neko/nvidia-brave:latest
-    container_name: neko
-    environment:
-      NEKO_DESKTOP_SCREEN: '1920x1080@30'
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: "192.168.1.119"
+  brave:
+    image: kasmweb/brave
+    container_name: brave
+    environement:
+      VNC_PW: password
     ports:
-      - "8080:8080"
-      - "52000-52100:52000-52100/udp"
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+      - "6901:6901"
     restart: unless-stopped
     shm_size: 4g
     networks:
       - no-internet
-      - custom-network
-
 
   minecraft:
     image: itzg/minecraft-server:latest
