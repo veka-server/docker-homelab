@@ -3,7 +3,13 @@ networks:
     internal: true
   custom-network:
     driver: bridge
-
+  custom-no-gw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: null   # pas de passerelle → pas d'accès Internet
+          
 volumes:
   comfyui-inputs:
   ollama:
@@ -244,7 +250,8 @@ services:
     restart: unless-stopped
     shm_size: 4g
     networks:
-      - no-internet
+      - no-internet         # réseau internal pour isoler
+      - custom-no-gw        # bridge sans gateway pour bloquer l'accès internet
 
   minecraft:
     image: itzg/minecraft-server:latest
