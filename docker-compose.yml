@@ -246,15 +246,13 @@ services:
     networks:
       - no-internet         # réseau internal pour isoler
     dns:
-      - dnsrelay
+      - 172.18.0.10
 
   dnsrelay:
     image: 4km3/dnsmasq:latest
     container_name: dnsrelay
     ports:
       - "53:53/udp"
-    networks:
-      - custom-network
     command:
       - --no-daemon
       - --log-queries
@@ -262,7 +260,10 @@ services:
       - --listen-address=0.0.0.0
       - --bind-interfaces
     restart: unless-stopped
-          
+  networks:
+    custom-network:
+      ipv4_address: 172.18.0.10
+      
   minecraft:
     image: itzg/minecraft-server:latest
     container_name: minecraft
