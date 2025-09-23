@@ -272,12 +272,15 @@ services:
   brave:
     image: ghcr.io/m1k1o/neko/brave:latest
     container_name: brave
-    environment:
-      NEKO_PASSWORD: password     # mot de passe pour accéder au navigateur
-      NEKO_PORT: 3000             # port interne utilisé par Neko
-      # NEKO_ARGS: "--some-option" # optionnel pour config personnalisée
     ports:
-      - "6901:3000"               # accessible depuis le navigateur à localhost:6901
+      - "8022:8080"
+      - "52000-52100:52000-52100/udp"
+    environment:  
+      NEKO_WEBRTC_NAT1TO1: "127.0.0.1"
+      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: "neko"  
+      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: "admin"
+      NEKO_WEBRTC_EPR: 52000-52100
+      NEKO_WEBRTC_ICELITE: 1
     restart: unless-stopped
     shm_size: 4g                  # pour un rendu graphique fluide
     networks:
