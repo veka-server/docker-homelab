@@ -342,25 +342,4 @@ services:
     volumes:
       - ./minecraft-data:/data
     restart: unless-stopped
-
-
-
-  bifrost:
-    image: maximhq/bifrost:latest
-    container_name: bifrost
-    ports:
-      - "8080:8080"
-    environment:
-      # exemple : host et port
-      - APP_HOST=0.0.0.0
-      - APP_PORT=8080
-      # niveau de log (facultatif)
-      - LOG_LEVEL=info
-    # persistance des données (config, logs, etc.)
-    volumes:
-      - ../data-bitfrost:/app/data
-    # si Ollama est dans un autre container ou sur le host, selon réseau
-    # peut avoir besoin de définir network etc.
-    networks:
-      - custom-network
     
