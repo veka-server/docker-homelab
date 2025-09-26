@@ -356,7 +356,7 @@ services:
       - ./output:/app/ai-toolkit/output
       - ./config:/app/ai-toolkit/config
     environment:
-      - AI_TOOLKIT_AUTH=${AI_TOOLKIT_AUTH:-password}
+      - AI_TOOLKIT_AUTH=test
       - NODE_ENV=production
       - TZ=UTC
     deploy:
