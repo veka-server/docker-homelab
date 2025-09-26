@@ -340,7 +340,7 @@ services:
       LEVEL_TYPE: "DEFAULT"    # DEFAULT, FLAT, LARGEBIOMES, AMPLIFIED, CUSTOMIZED
       SERVER_PORT: "25565"
     volumes:
-      - ./minecraft-data:/data
+      - ../minecraft-data:/data
     restart: unless-stopped
     
 
@@ -350,11 +350,11 @@ services:
     ports:
       - "8675:8675"
     volumes:
-      - ~/.cache/huggingface/hub:/root/.cache/huggingface/hub
-      - ./aitk_db.db:/app/ai-toolkit/aitk_db.db
-      - ./datasets:/app/ai-toolkit/datasets
-      - ./output:/app/ai-toolkit/output
-      - ./config:/app/ai-toolkit/config
+      - ../cache_huggingface_hub:/root/.cache/huggingface/hub
+      - ../aitk_db.db:/app/ai-toolkit/aitk_db.db
+      - ../datasets:/app/ai-toolkit/datasets
+      - ../output:/app/ai-toolkit/output
+      - ../config:/app/ai-toolkit/config
     environment:
       - AI_TOOLKIT_AUTH=test
       - NODE_ENV=production
