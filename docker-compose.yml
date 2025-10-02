@@ -354,10 +354,10 @@ services:
       - "8675:8675"
     volumes:
       - ../cache_huggingface_hub:/root/.cache/huggingface/hub
-      - ../aitk_db.db:/app/ai-toolkit/aitk_db.db
-      - ../datasets:/app/ai-toolkit/datasets
-      - ../output:/app/ai-toolkit/output
-      - ../config:/app/ai-toolkit/config
+#      - ../aitk_db.db:/app/ai-toolkit/aitk_db.db
+      - ../ai-toolkit-datasets:/app/ai-toolkit/datasets
+      - ../ai-toolkit-output:/app/ai-toolkit/output
+      - ../ai-toolkit-config:/app/ai-toolkit/config
     environment:
       - AI_TOOLKIT_AUTH=test
       - NODE_ENV=production
