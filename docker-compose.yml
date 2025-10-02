@@ -15,7 +15,6 @@ volumes:
   immich-model-cache:
   neko_data:
   hyphanet_data:
-    external: true
 
 services:
 
