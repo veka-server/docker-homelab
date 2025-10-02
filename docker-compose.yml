@@ -347,25 +347,25 @@ services:
     restart: unless-stopped
     
 
-  ai-toolkit:
-    image: ostris/aitoolkit:latest
-    restart: unless-stopped
-    ports:
-      - "8675:8675"
-    volumes:
-      - ../cache_huggingface_hub:/root/.cache/huggingface/hub
+#  ai-toolkit:
+#    image: ostris/aitoolkit:latest
+#    restart: unless-stopped
+#    ports:
+#      - "8675:8675"
+#    volumes:
+#      - ../cache_huggingface_hub:/root/.cache/huggingface/hub
 #      - ../aitk_db.db:/app/ai-toolkit/aitk_db.db
-      - ../ai-toolkit-datasets:/app/ai-toolkit/datasets
-      - ../ai-toolkit-output:/app/ai-toolkit/output
-      - ../ai-toolkit-config:/app/ai-toolkit/config
-    environment:
-      - AI_TOOLKIT_AUTH=test
-      - NODE_ENV=production
-      - TZ=UTC
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+#      - ../ai-toolkit-datasets:/app/ai-toolkit/datasets
+#      - ../ai-toolkit-output:/app/ai-toolkit/output
+#      - ../ai-toolkit-config:/app/ai-toolkit/config
+#    environment:
+#      - AI_TOOLKIT_AUTH=test
+#      - NODE_ENV=production
+#      - TZ=UTC
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - driver: nvidia
+#              count: all
+#              capabilities: [gpu]
