@@ -1,6 +1,10 @@
 networks:
   no-internet:
+    driver: bridge
     internal: true
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
   custom-network:
     driver: bridge
     ipam:
