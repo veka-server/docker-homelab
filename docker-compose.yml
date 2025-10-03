@@ -141,7 +141,7 @@ services:
       - FB_BASEURL=/filebrowser
     volumes:
       - /home/veka:/data/veka
-      - /CONFIG_DIR:/config
+      - /home/veka/config-explorer:/config
     networks:
       - no-internet
     restart: unless-stopped
