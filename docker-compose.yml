@@ -280,7 +280,9 @@ services:
       VNC_PW: password  # kasm_user
       LAUNCH_URL: http://hub.loc.ovh  # optionnel si custom_startup.sh lit cette variable
       # --- Configuration du proxy TOR ---
-      ALL_PROXY: socks5h://tor:9050
+#      ALL_PROXY: socks5h://tor:9050
+      HTTP_PROXY: http://tor:8119
+      HTTPS_PROXY: http://tor:8119
     ports:
       - "6902:6901"
     restart: unless-stopped
@@ -296,6 +298,7 @@ services:
     ports:
       - "9050:9050"
       - "9051:9051"
+      - "8119:8118"
     restart: always
     networks:
       custom-network: # accees internet
