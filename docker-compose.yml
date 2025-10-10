@@ -273,7 +273,7 @@ services:
       - 172.119.0.13
 
   tor:
-    image: dockurr/tor
+    image: ghcr.io/veka-server/tor:latest
     container_name: tor
     ports:
       - "9050:9050"
