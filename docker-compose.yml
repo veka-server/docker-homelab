@@ -282,7 +282,10 @@ services:
       - ../config_tor:/etc/tor
       - ../data_tor:/var/lib/tor
     restart: always
-     
+    networks:
+      custom-network: # accees internet
+      no-internet:
+      
   minecraft:
     image: itzg/minecraft-server:latest
     container_name: minecraft
