@@ -281,9 +281,6 @@ services:
       LAUNCH_URL: http://hub.loc.ovh  # optionnel si custom_startup.sh lit cette variable
       # --- Configuration du proxy TOR ---
       ALL_PROXY: socks5h://tor:9050
-      HTTP_PROXY: socks5h://tor:9050
-      HTTPS_PROXY: socks5h://tor:9050
-      NO_PROXY: "localhost,127.0.0.1"
     ports:
       - "6902:6901"
     restart: unless-stopped
