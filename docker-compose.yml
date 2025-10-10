@@ -298,7 +298,7 @@ services:
     ports:
       - "9050:9050"
       - "9051:9051"
-      - "8119:8118"
+      - "8118:8118"
     restart: always
     networks:
       custom-network: # accees internet
