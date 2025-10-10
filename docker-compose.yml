@@ -272,6 +272,27 @@ services:
     dns:
       - 172.119.0.13
 
+
+  tor-browser:
+    image: kasmweb/brave:1.17.0-rolling-weekly
+    container_name: tor-browser
+    environment:
+      VNC_PW: password  # kasm_user
+      LAUNCH_URL: http://hub.loc.ovh  # optionnel si custom_startup.sh lit cette variable
+      # --- Configuration du proxy TOR ---
+      ALL_PROXY: socks5h://tor:9050
+      HTTP_PROXY: socks5h://tor:9050
+      HTTPS_PROXY: socks5h://tor:9050
+      NO_PROXY: "localhost,127.0.0.1"
+    ports:
+      - "6902:6901"
+    restart: unless-stopped
+    shm_size: 4g
+    networks:
+      - no-internet         # réseau internal pour isoler
+    dns:
+      - 172.119.0.13
+
   tor:
     image: ghcr.io/veka-server/tor:latest
     container_name: tor
