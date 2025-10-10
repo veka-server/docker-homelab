@@ -290,6 +290,25 @@ services:
     dns:
       - 172.119.0.13
 
+      
+  tor-browser2:
+    image: kasmweb/tor-browser:latest
+    container_name: tor-browser2
+    environment:
+      VNC_PW: password  # kasm_user
+      LAUNCH_URL: http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion  # optionnel si custom_startup.sh lit cette variable
+#      HTTP_PROXY: http://tor:8118
+#      HTTPS_PROXY: http://tor:8118
+    ports:
+      - "6901:6901"
+    restart: unless-stopped
+    shm_size: 4g
+    networks:
+      custom-network: # accees internet
+      no-internet:         # réseau internal pour isoler
+    dns:
+      - 172.119.0.13
+
   tor:
     image: ghcr.io/veka-server/tor:latest
     container_name: tor
