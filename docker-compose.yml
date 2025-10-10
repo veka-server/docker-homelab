@@ -292,7 +292,7 @@ services:
 
       
   tor-browser2:
-    image: kasmweb/tor-browser:latest
+    image: kasmweb/tor-browser:1.17.0-rolling-daily
     container_name: tor-browser2
     environment:
       VNC_PW: password  # kasm_user
