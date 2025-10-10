@@ -280,8 +280,9 @@ services:
       LAUNCH_URL: http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion  # optionnel si custom_startup.sh lit cette variable
       HTTP_PROXY: http://tor:8118
       HTTPS_PROXY: http://tor:8118
-    ports:
-      - "6902:6901"
+      APP_ARGS: "--no-sandbox --disable-javascript --disable-plugins --disable-extensions --disable-sync --disable-background-networking"
+#    ports:
+#      - "6902:6901"
     restart: unless-stopped
     shm_size: 4g
     networks:
