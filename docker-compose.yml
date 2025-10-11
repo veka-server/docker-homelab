@@ -349,8 +349,8 @@ services:
     image: ghcr.io/veka-server/docker-surf-no-vnc:main
     container_name: browser-tor-novnc
     restart: unless-stopped
-    ports:
-      - "8080:8080"  # accès noVNC via navigateur
+#    ports:
+#      - "8080:8080"  # accès noVNC via navigateur
     environment:
       # Désactive les proxies HTTP (forçage du SOCKS)
 #      - http_proxy=
