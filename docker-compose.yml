@@ -345,9 +345,9 @@ services:
     restart: unless-stopped
 
 
-  surf-tor-novnc:
+  browser-tor-novnc:
     image: ghcr.io/veka-server/docker-surf-no-vnc:main
-    container_name: surf-tor-novnc
+    container_name: browser-tor-novnc
     restart: unless-stopped
     ports:
       - "8080:8080"  # accès noVNC via navigateur
