@@ -357,7 +357,8 @@ services:
 #      - https_proxy=
 #      - all_proxy=socks5://127.0.0.1:9050
       - DISPLAY=:0
-    
+    networks:
+      no-internet:
 
 #  ai-toolkit:
 #    image: ostris/aitoolkit:latest
