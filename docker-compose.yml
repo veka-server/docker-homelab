@@ -30,6 +30,17 @@ services:
     volumes:
       - /home/veka/models:/models
 
+  dns:
+    build:
+      context: https://github.com/veka-server/docker-dns.git#main
+    container_name: dns
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    networks:
+      - custom-network
+    restart: unless-stopped
+    
   dnsrelay:
     image: 4km3/dnsmasq:latest
     container_name: dnsrelay
