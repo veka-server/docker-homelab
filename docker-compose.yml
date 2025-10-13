@@ -7,7 +7,7 @@ networks:
     ipam:
       config:
         - subnet: 172.30.0.0/16
-          ip_range: 172.30.0.10/28   # IP fixes réservées de .10 à .25
+          ip_range: 172.30.0.0/24   # un /24 pour inclure toutes tes IP .10-.25
   custom-network:
     driver: bridge
     ipam:
