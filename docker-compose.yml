@@ -1,17 +1,15 @@
-version: "3.9"
-
 networks:
   no-internet:
     driver: bridge
-    internal: true # no internet
+    internal: true # pas d'accès internet
 
   internal-fixed:
     driver: bridge
-    internal: true # no internet
+    internal: true # pas d'accès internet
     ipam:
       config:
         - subnet: 172.125.0.0/24
-        
+
   custom-network:
     driver: bridge
 
