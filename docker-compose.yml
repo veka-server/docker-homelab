@@ -1,17 +1,19 @@
+version: "3.9"
+
 networks:
   no-internet:
     driver: bridge
     internal: true
     ipam:
       config:
-        - subnet: 172.30.0.0/16   # ✅ réseau interne isolé
-
+        - subnet: 172.30.0.0/16
+          ip_range: 172.30.0.10/28   # IP fixes réservées de .10 à .25
   custom-network:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.31.0.0/16   # ✅ réseau avec accès internet
-          
+        - subnet: 172.31.0.0/16
+
 volumes:
   comfyui-inputs:
   ollama:
@@ -40,12 +42,12 @@ services:
       - --server=192.168.1.182
       - --listen-address=0.0.0.0
       - --bind-interfaces
-      - --address=/.loc.ovh/172.30.0.11   # 👈 mis à jour pour correspondre au nouveau réseau interne
+      - --address=/.loc.ovh/172.30.0.11
     restart: unless-stopped
     networks:
-      custom-network:
       no-internet:
-        ipv4_address: 172.30.0.13  # ip sans accès internet
+        ipv4_address: 172.30.0.11
+      custom-network:
 
   docker-download-models:
     image: ghcr.io/veka-server/docker-download-models:latest
@@ -155,7 +157,7 @@ services:
       - /home/veka/nginx-ssl:/etc/nginx/ssl
     networks:
       no-internet:
-        ipv4_address: 172.30.0.11  # ip sans accès internet
+        ipv4_address: 172.30.0.10
       custom-network:
     restart: unless-stopped
 
@@ -208,7 +210,7 @@ services:
 
   redis:
     container_name: immich_redis
-    image: docker.io/valkey/valkey:8-bookworm
+    image: docker.io/valkey/valkey:8-bookworm@sha256:5b8f8c333bef895c925f56629d6ba90aea95a4f7391f62411e625267c600b19c
     healthcheck:
       test: redis-cli ping || exit 1
     restart: always
@@ -217,7 +219,7 @@ services:
       
   database:
     container_name: immich_postgres
-    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:32324a2f41df5de9efe1af166b7008c3f55646f8d0e00d9550c16c9822366b4a
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
@@ -255,7 +257,7 @@ services:
     networks:
       - no-internet
     dns:
-      - 172.30.0.13
+      - 172.30.0.11
 
   tor-browser:
     image: kasmweb/brave:1.17.0-rolling-weekly
@@ -271,7 +273,7 @@ services:
     networks:
       - no-internet
     dns:
-      - 172.30.0.13
+      - 172.30.0.11
 
   tor-browser2:
     image: kasmweb/tor-browser:1.17.0-rolling-daily
@@ -284,19 +286,19 @@ services:
     restart: unless-stopped
     shm_size: 4g
     networks:
-      custom-network:
-      no-internet:
+      - custom-network
+      - no-internet
     dns:
-      - 172.30.0.13
+      - 172.30.0.11
 
   tor:
     image: ghcr.io/veka-server/docker-tor-proxy:latest
     container_name: tor
     restart: always
     networks:
-      custom-network:
-      no-internet:
-      
+      - custom-network
+      - no-internet
+
   minecraft:
     image: itzg/minecraft-server:latest
     container_name: minecraft
@@ -324,7 +326,7 @@ services:
     image: ghcr.io/veka-server/docker-surf-no-vnc:main
     container_name: browser-tor-novnc
     restart: unless-stopped
-    environment:
-      - DISPLAY=:0
     networks:
-      no-internet:
+      - no-internet
+    dns:
+      - 172.30.0.11
