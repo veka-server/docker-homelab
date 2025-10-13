@@ -8,7 +8,10 @@ networks:
   internal-fixed:
     driver: bridge
     internal: true # no internet
-
+    ipam:
+      config:
+        - subnet: 172.25.0.0/24
+        
   custom-network:
     driver: bridge
 
