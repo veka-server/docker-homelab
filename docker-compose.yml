@@ -3,36 +3,22 @@ version: "3.9"
 networks:
   no-internet:
     driver: bridge
-    internal: true
-    ipam:
-      config:
-        - subnet: 172.30.0.0/16
-          ip_range: 172.30.0.0/24   # un /24 pour inclure toutes tes IP .10-.25
+    internal: true # no internet
+
+  internal-fixed:
+    driver: bridge
+    internal: true # no internet
+
   custom-network:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.31.0.0/16
 
 volumes:
   comfyui-inputs:
-  ollama:
-  open-webui:
   portainer_data:
   immich-model-cache:
-  neko_data:
   hyphanet_data:
 
 services:
-
-  watchtower:
-    image: containrrr/watchtower:latest
-    container_name: watchtower
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 3600 --cleanup
-
   dnsrelay:
     image: 4km3/dnsmasq:latest
     container_name: dnsrelay
@@ -42,110 +28,12 @@ services:
       - --server=192.168.1.182
       - --listen-address=0.0.0.0
       - --bind-interfaces
-      - --address=/.loc.ovh/172.30.0.11
+      - --address=/.loc.ovh/172.25.0.11
     restart: unless-stopped
     networks:
-      no-internet:
-        ipv4_address: 172.30.0.11
+      internal-fixed:
+        ipv4_address: 172.25.0.11
       custom-network:
-
-  docker-download-models:
-    image: ghcr.io/veka-server/docker-download-models:latest
-    container_name: docker-download-models
-    volumes:
-      - /home/veka/models:/models
-
-  dns:
-    build:
-      context: https://github.com/veka-server/docker-dns.git#main
-    container_name: dns
-    ports:
-      - "53:53/udp"
-      - "53:53/tcp"
-    networks:
-      - custom-network
-    restart: unless-stopped
-
-  comfyui:
-    container_name: comfyui
-    image: ghcr.io/veka-server/docker-comfyui:latest
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-    ports:
-      - "8188:8188"
-    volumes:
-      - /home/veka/models/checkpoints:/app/comfyui/models/checkpoints
-      - /home/veka/models/clip:/app/comfyui/models/clip
-      - /home/veka/models/clip_vision:/app/comfyui/models/clip_vision
-      - /home/veka/models/unet:/app/comfyui/models/unet
-      - /home/veka/models/vae:/app/comfyui/models/vae
-      - /home/veka/models/loras:/app/comfyui/models/loras
-      - /home/veka/models/upscale_models:/app/comfyui/models/upscale_models
-      - /home/veka/models/controlnet:/app/comfyui/models/controlnet
-      - /home/veka/models/output:/app/comfyui/output
-      - /home/veka/models/LLM:/app/comfyui/models/LLM
-      - /home/veka/models/diffusion_models:/app/comfyui/models/diffusion_models
-      - /home/veka/models/text_encoders:/app/comfyui/models/text_encoders
-      - /home/veka/models/Joy_caption_two/cgrkzexw-599808:/app/comfyui/models/Joy_caption_two
-      - comfyui-inputs:/app/comfyui/input:rw
-      - /home/veka/models/workflow:/app/comfyui/user/default/workflows
-    networks:
-      - no-internet
-    restart: unless-stopped
-    depends_on:
-      - docker-download-models
-
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-    environment:
-      - OLLAMA_KEEP_ALIVE=0
-    ports:
-      - "11434:11434"
-    volumes:
-      - ../ollama:/root/.ollama
-    networks:
-      - no-internet
-      - custom-network
-    restart: unless-stopped
-
-  open-webui-standalone:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui-standalone
-    environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - ENABLE_OPENAI_API=0
-      - HF_HUB_OFFLINE=1
-      - OFFLINE_MODE=1
-    volumes:
-      - ../open-webui:/app/backend/data
-    networks:
-      - no-internet
-    restart: unless-stopped
-
-  explorer:
-    image: hurlenko/filebrowser
-    container_name: explorer
-    environment:
-      - FB_BASEURL=/filebrowser
-    volumes:
-      - /home/veka:/data/veka
-      - /home/veka/config-explorer:/config
-    networks:
-      - no-internet
-    restart: unless-stopped
 
   nginx-reverse-proxy:
     image: ghcr.io/veka-server/docker-nginx-reverse-proxy:latest
@@ -153,12 +41,75 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - /home/veka/nginx-ssl:/etc/nginx/ssl
+    restart: unless-stopped
     networks:
+      internal-fixed:
+        ipv4_address: 172.25.0.12
       no-internet:
-        ipv4_address: 172.30.0.10
-      custom-network:
+
+  comfyui:
+    image: ghcr.io/veka-server/docker-comfyui:latest
+    container_name: comfyui
+    ports:
+      - "8188:8188"
+    volumes:
+      - /home/veka/models/checkpoints:/app/comfyui/models/checkpoints
+      - comfyui-inputs:/app/comfyui/input:rw
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  open-webui-standalone:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui-standalone
+    ports:
+      - "8080:8080"
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  immich_postgres:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+    container_name: immich_postgres
+    environment:
+      POSTGRES_USER: immich
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: immich
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  immich_server:
+    image: ghcr.io/immich-app/immich-server:release
+    container_name: immich_server
+    depends_on:
+      - immich_postgres
+      - immich_redis
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  immich_redis:
+    image: valkey/valkey:8-bookworm
+    container_name: immich_redis
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  immich_machine_learning:
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    container_name: immich_machine_learning
+    networks:
+      - no-internet
+    restart: unless-stopped
+
+  explorer:
+    image: hurlenko/filebrowser
+    container_name: explorer
+    ports:
+      - "8081:8080"
+    networks:
+      - no-internet
     restart: unless-stopped
 
   portainer:
@@ -175,158 +126,70 @@ services:
       - custom-network
     restart: unless-stopped
 
-  immich-server:
-    container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    volumes:
-      - ${UPLOAD_LOCATION}:/data
-      - /etc/localtime:/etc/localtime:ro
-      - /home/veka/models/output:/upload:ro
-    env_file:
-      - .env
-    ports:
-      - '2283:2283'
-    depends_on:
-      - redis
-      - database
-    restart: always
-    healthcheck:
-      disable: false
+  tor:
+    image: ghcr.io/veka-server/docker-tor-proxy:latest
+    container_name: tor
     networks:
       - no-internet
-
-  immich-machine-learning:
-    container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
-    volumes:
-      - immich-model-cache:/cache
-    env_file:
-      - .env
-    restart: always
-    healthcheck:
-      disable: false
-    networks:
-      - no-internet
-
-  redis:
-    container_name: immich_redis
-    image: docker.io/valkey/valkey:8-bookworm@sha256:5b8f8c333bef895c925f56629d6ba90aea95a4f7391f62411e625267c600b19c
-    healthcheck:
-      test: redis-cli ping || exit 1
-    restart: always
-    networks:
-      - no-internet
-      
-  database:
-    container_name: immich_postgres
-    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:32324a2f41df5de9efe1af166b7008c3f55646f8d0e00d9550c16c9822366b4a
-    environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_DB: ${DB_DATABASE_NAME}
-      POSTGRES_INITDB_ARGS: '--data-checksums'
-    volumes:
-      - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
-    shm_size: 128mb
-    restart: always
-    networks:
-      - no-internet
-
-  hyphanet:
-    container_name: hyphanet
-    build:
-      context: https://github.com/PoulLorca/hyphanet-docker.git#main
-      args:
-        HYPHANET_VERSION: "1503"
-    restart: always
-    volumes:
-      - hyphanet_data:/data
-    networks:
-      - custom-network
+    restart: unless-stopped
 
   brave:
     image: kasmweb/brave:1.17.0-rolling-weekly
     container_name: brave
-    environment:
-      VNC_PW: password
-      LAUNCH_URL: http://hub.loc.ovh
-    ports:
-      - "6901:6901"
-    restart: unless-stopped
-    shm_size: 4g
     networks:
       - no-internet
-    dns:
-      - 172.30.0.11
+    restart: unless-stopped
 
   tor-browser:
-    image: kasmweb/brave:1.17.0-rolling-weekly
+    image: kasmweb/tor-browser:1.17.0-rolling-daily
     container_name: tor-browser
-    environment:
-      VNC_PW: password
-      LAUNCH_URL: http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion
-      HTTP_PROXY: http://tor:8118
-      HTTPS_PROXY: http://tor:8118
-      APP_ARGS: "--no-sandbox --disable-javascript --disable-plugins --disable-extensions --disable-sync --disable-background-networking"
-    restart: unless-stopped
-    shm_size: 4g
     networks:
       - no-internet
-    dns:
-      - 172.30.0.11
+    restart: unless-stopped
 
   tor-browser2:
     image: kasmweb/tor-browser:1.17.0-rolling-daily
     container_name: tor-browser2
-    environment:
-      VNC_PW: password
-      LAUNCH_URL: http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion
-    ports:
-      - "6901:6901"
+    networks:
+      - no-internet
     restart: unless-stopped
-    shm_size: 4g
-    networks:
-      - custom-network
-      - no-internet
-    dns:
-      - 172.30.0.11
 
-  tor:
-    image: ghcr.io/veka-server/docker-tor-proxy:latest
-    container_name: tor
-    restart: always
+  browser-tor-novnc:
+    image: ghcr.io/veka-server/docker-surf-no-vnc:main
+    container_name: browser-tor-novnc
     networks:
-      - custom-network
       - no-internet
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - no-internet
+      - custom-network
+    restart: unless-stopped
+
+  hyphanet:
+    image: docker-homelab-hyphanet
+    container_name: hyphanet
+    networks:
+      - no-internet
+    restart: unless-stopped
 
   minecraft:
     image: itzg/minecraft-server:latest
     container_name: minecraft
     ports:
       - "25565:25565"
-    environment:
-      EULA: "TRUE"
-      MAX_PLAYERS: "20"
-      MOTD: "Serveur Veka"
-      ENFORCE_WHITELIST: "TRUE"
-      WHITELIST: "vekam,EmilieJasmine14"
-      OPS: "vekam"
-      ONLINE_MODE: "TRUE"
-      DIFFICULTY: "normal"
-      VERSION: "1.21.8"
-      MODE: "survival"
-      PVP: "true"
-      LEVEL_TYPE: "DEFAULT"
-      SERVER_PORT: "25565"
-    volumes:
-      - ../minecraft-data:/data
-    restart: unless-stopped
-
-  browser-tor-novnc:
-    image: ghcr.io/veka-server/docker-surf-no-vnc:main
-    container_name: browser-tor-novnc
-    restart: unless-stopped
     networks:
       - no-internet
-    dns:
-      - 172.30.0.11
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    networks:
+      - no-internet
+    restart: unless-stopped
