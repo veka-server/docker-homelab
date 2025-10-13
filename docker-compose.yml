@@ -23,6 +23,13 @@ volumes:
   hyphanet_data:
 
 services:
+
+  docker-download-models:
+    image: ghcr.io/veka-server/docker-download-models:latest
+    container_name: docker-download-models
+    volumes:
+      - /home/veka/models:/models
+
   dnsrelay:
     image: 4km3/dnsmasq:latest
     container_name: dnsrelay
