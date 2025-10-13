@@ -21,8 +21,23 @@ volumes:
   immich-model-cache:
   neko_data:
   hyphanet_data:
+  claraverse_data:
 
 services:
+
+  claraverse:
+    image: badboysm890/claraverse:latest
+    container_name: claraverse
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      # Variables d'environnement utiles, à adapter si besoin
+      - CLARAVERSE_ENV=development
+      - USE_GPU=false
+    volumes:
+      - claraverse_data:/app/data
+    shm_size: '1g'  # utile pour certaines opérations de ML
 
   docker-download-models:
     image: ghcr.io/veka-server/docker-download-models:latest
