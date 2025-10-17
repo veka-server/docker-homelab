@@ -267,58 +267,10 @@ services:
     dns:
       - 172.125.0.11
 
-  tor-browser:
-    image: kasmweb/brave:1.17.0-rolling-weekly
-    container_name: tor-browser
-    environment:
-      VNC_PW: password  # kasm_user
-      LAUNCH_URL: http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion  # optionnel si custom_startup.sh lit cette variable
-      HTTP_PROXY: http://tor:8118
-      HTTPS_PROXY: http://tor:8118
-      APP_ARGS: "--no-sandbox --disable-javascript --disable-plugins --disable-extensions --disable-sync --disable-background-networking"
-#    ports:
-#      - "6902:6901"
-    restart: unless-stopped
-    shm_size: 4g
-    networks:
-      no-internet: 
-      internal-fixed:
-        ipv4_address: 172.125.0.14
-    dns:
-      - 172.125.0.11
-
-  tor-browser2:
-    image: kasmweb/tor-browser:1.17.0-rolling-daily
-    container_name: tor-browser2
-    environment:
-      VNC_PW: password  # kasm_user
-      LAUNCH_URL: http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion  # optionnel si custom_startup.sh lit cette variable
-#      HTTP_PROXY: http://tor:8118
-#      HTTPS_PROXY: http://tor:8118
-    ports:
-      - "6901:6901"
-    restart: unless-stopped
-    shm_size: 4g
-    networks:
-      custom-network: # accees internet
-      no-internet: 
-      internal-fixed:
-        ipv4_address: 172.125.0.15
-    dns:
-      - 172.125.0.11
-
   browser-tor-novnc:
     image: ghcr.io/veka-server/docker-surf-no-vnc:main
     container_name: browser-tor-novnc
     restart: unless-stopped
-#    ports:
-#      - "8080:8080"  # accès noVNC via navigateur
-    environment:
-      # Désactive les proxies HTTP (forçage du SOCKS)
-#      - http_proxy=
-#      - https_proxy=
-#      - all_proxy=socks5://127.0.0.1:9050
-      - DISPLAY=:0
     networks:
       no-internet:
 
