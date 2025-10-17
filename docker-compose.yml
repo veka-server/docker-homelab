@@ -111,6 +111,13 @@ services:
     networks:
       - no-internet
     restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 
   open-webui-standalone:
     image: ghcr.io/open-webui/open-webui:main
