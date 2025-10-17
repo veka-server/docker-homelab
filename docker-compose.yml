@@ -86,6 +86,7 @@ services:
       - "443:443"
     volumes:
       - /home/veka/nginx-ssl:/etc/nginx/ssl
+      - /home/veka/nginx-htpasswd:/etc/nginx/.htpasswd:ro 
     restart: unless-stopped
     networks:
       internal-fixed:
