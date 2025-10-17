@@ -50,6 +50,7 @@ services:
     container_name: docker-download-models
     volumes:
       - /home/veka/models:/models
+    restart: no
 
   dns:
     build:
