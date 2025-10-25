@@ -1,0 +1,41 @@
+services:
+  brave:
+    image: kasmweb/brave:1.17.0-rolling-weekly
+    container_name: brave
+    environment:
+      VNC_PW: password
+      LAUNCH_URL: http://hub.loc.ovh
+    ports:
+      - "6901:6901"
+    restart: unless-stopped
+    shm_size: 4g
+    networks:
+      no-internet:
+      internal-fixed:
+        ipv4_address: 172.125.0.13
+    dns:
+      - 172.125.0.11
+    labels:
+      - "homepage.group=Browsing"
+      - "homepage.name=Brave Browser"
+      - "homepage.icon=brave.png"
+      - "homepage.href=http://localhost:6901"
+      - "homepage.description=Navigateur Web VNC"
+
+  browser-tor-novnc:
+    image: ghcr.io/veka-server/docker-surf-no-vnc:main
+    container_name: browser-tor-novnc
+    restart: unless-stopped
+    networks:
+      - no-internet
+    labels:
+      - "homepage.group=Browsing"
+      - "homepage.name=Browser Tor NoVNC"
+      - "homepage.icon=chromium.png"
+      - "homepage.description=Navigateur Tor sans VNC"
+
+networks:
+  no-internet:
+    external: true
+  internal-fixed:
+    external: true
