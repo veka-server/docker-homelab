@@ -69,6 +69,12 @@ services:
     networks:
       - custom-network
       - mcp-network
+    labels:
+      - "homepage.group=AI & LLM"
+      - "homepage.name=MCPO"
+      - "homepage.icon=openwebui.png"
+      - "homepage.href=http://mcpo:8000"
+      - "homepage.description=MCP Protocol Server"
 
   docker-download-models:
     image: ghcr.io/veka-server/docker-download-models:latest
@@ -76,6 +82,11 @@ services:
     volumes:
       - /home/veka/models:/models
     restart: no
+    labels:
+      - "homepage.group=Utilities"
+      - "homepage.name=Download Models"
+      - "homepage.icon=download.png"
+      - "homepage.description=Gestionnaire de téléchargement de modèles"
 
   dns:
     build:
@@ -87,6 +98,12 @@ services:
     networks:
       - custom-network
     restart: unless-stopped
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=DNS"
+      - "homepage.icon=pihole.png"
+      - "homepage.href=http://dns:53"
+      - "homepage.description=Serveur DNS"
     
   dnsrelay:
     image: 4km3/dnsmasq:latest
@@ -103,6 +120,11 @@ services:
       internal-fixed:
         ipv4_address: 172.125.0.11
       custom-network:
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=DNS Relay"
+      - "homepage.icon=pihole.png"
+      - "homepage.description=Relais DNS Dnsmasq"
 
   nginx-reverse-proxy:
     image: ghcr.io/veka-server/docker-nginx-reverse-proxy:latest
@@ -121,7 +143,7 @@ services:
       custom-network:
     labels:
       - "homepage.group=Web Servers"
-      - "homepage.name=Nginx"
+      - "homepage.name=Nginx Reverse Proxy"
       - "homepage.icon=nginx.png"
       - "homepage.href=http://localhost:8080"
       - "homepage.description=Serveur web Nginx"
@@ -158,6 +180,13 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    labels:
+      - "homepage.group=AI & Image Generation"
+      - "homepage.name=ComfyUI"
+      - "homepage.icon=comfyui.png"
+      - "homepage.href=http://localhost:8188"
+      - "homepage.description=Workflow basé sur les nœuds pour la génération d'images"
+      - "homepage.weight=1"
 
   open-webui-standalone:
     image: ghcr.io/open-webui/open-webui:main
@@ -175,6 +204,13 @@ services:
       - no-internet
       - mcp-network
     restart: unless-stopped
+    labels:
+      - "homepage.group=AI & LLM"
+      - "homepage.name=Open WebUI"
+      - "homepage.icon=openwebui.png"
+      - "homepage.href=http://localhost:8080"
+      - "homepage.description=Interface Web pour les modèles LLM"
+      - "homepage.weight=1"
 
   database:
     container_name: immich_postgres
@@ -193,6 +229,11 @@ services:
     restart: always
     networks:
       - no-internet
+    labels:
+      - "homepage.group=Databases"
+      - "homepage.name=PostgreSQL Immich"
+      - "homepage.icon=postgres.png"
+      - "homepage.description=Base de données PostgreSQL pour Immich"
       
   immich-server:
     container_name: immich_server
@@ -217,6 +258,13 @@ services:
       disable: false
     networks:
       - no-internet
+    labels:
+      - "homepage.group=Media Management"
+      - "homepage.name=Immich"
+      - "homepage.icon=immich.png"
+      - "homepage.href=http://localhost:2283"
+      - "homepage.description=Galerie photos et vidéos"
+      - "homepage.weight=1"
 
   immich-machine-learning:
     container_name: immich_machine_learning
@@ -235,6 +283,11 @@ services:
       disable: false
     networks:
       - no-internet
+    labels:
+      - "homepage.group=AI & LLM"
+      - "homepage.name=Immich ML"
+      - "homepage.icon=immich.png"
+      - "homepage.description=Machine Learning pour Immich"
 
   redis:
     container_name: immich_redis
@@ -244,6 +297,11 @@ services:
     restart: always
     networks:
       - no-internet
+    labels:
+      - "homepage.group=Databases"
+      - "homepage.name=Redis/Valkey"
+      - "homepage.icon=redis.png"
+      - "homepage.description=Cache Redis pour Immich"
 
   explorer:
     image: hurlenko/filebrowser
@@ -257,6 +315,12 @@ services:
     networks:
       - no-internet
     restart: unless-stopped
+    labels:
+      - "homepage.group=Utilities"
+      - "homepage.name=File Explorer"
+      - "homepage.icon=filebrowser.png"
+      - "homepage.href=http://localhost:8080/filebrowser"
+      - "homepage.description=Explorateur de fichiers"
 
   portainer:
     image: portainer/portainer-ce:latest
@@ -271,6 +335,11 @@ services:
       - no-internet
       - custom-network
     restart: unless-stopped
+    labels:
+      - "homepage.group=Admin"
+      - "homepage.name=Portainer"
+      - "homepage.icon=portainer.png"
+      - "homepage.description=Gestionnaire Docker"
 
   tor:
     image: ghcr.io/veka-server/docker-tor-proxy:latest
@@ -283,6 +352,11 @@ services:
     networks:
       custom-network: # accees internet
       no-internet:
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=Tor Proxy"
+      - "homepage.icon=tor.png"
+      - "homepage.description=Proxy Tor anonyme"
 
   brave:
     image: kasmweb/brave:1.17.0-rolling-weekly
@@ -300,6 +374,12 @@ services:
         ipv4_address: 172.125.0.13
     dns:
       - 172.125.0.11
+    labels:
+      - "homepage.group=Browsing"
+      - "homepage.name=Brave Browser"
+      - "homepage.icon=brave.png"
+      - "homepage.href=http://localhost:6901"
+      - "homepage.description=Navigateur Web VNC"
 
   browser-tor-novnc:
     image: ghcr.io/veka-server/docker-surf-no-vnc:main
@@ -307,6 +387,11 @@ services:
     restart: unless-stopped
     networks:
       no-internet:
+    labels:
+      - "homepage.group=Browsing"
+      - "homepage.name=Browser Tor NoVNC"
+      - "homepage.icon=chromium.png"
+      - "homepage.description=Navigateur Tor sans VNC"
 
   ollama:
     image: ollama/ollama:latest
@@ -328,6 +413,13 @@ services:
       - no-internet
       - custom-network
     restart: unless-stopped
+    labels:
+      - "homepage.group=AI & LLM"
+      - "homepage.name=Ollama"
+      - "homepage.icon=ollama.png"
+      - "homepage.href=http://localhost:11434"
+      - "homepage.description=Moteur LLM local"
+      - "homepage.weight=2"
 
   hyphanet:
     container_name: hyphanet
@@ -340,6 +432,11 @@ services:
       - hyphanet_data:/data
     networks:
       - custom-network
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=Hyphanet"
+      - "homepage.icon=network.png"
+      - "homepage.description=Réseau P2P Hyphanet"
 
   minecraft:
     image: itzg/minecraft-server:latest
@@ -353,7 +450,7 @@ services:
       ENFORCE_WHITELIST: "TRUE"         # Force la whitelist
       WHITELIST: "vekam,EmilieJasmine14"      # Liste des comptes autorisés
       OPS: "vekam"                # Admins (opérateurs)
-      ONLINE_MODE: "TRUE"               # Authentification Mojang (évite besoin d’un mot de passe)
+      ONLINE_MODE: "TRUE"               # Authentification Mojang (évite besoin d'un mot de passe)
       DIFFICULTY: "normal"         # peaceful easy normal hard
       VERSION: "1.21.8"
       MODE: "survival"      # survival , creative, adventure, spectator
@@ -363,6 +460,12 @@ services:
     volumes:
       - ../minecraft-data:/data
     restart: unless-stopped
+    labels:
+      - "homepage.group=Gaming"
+      - "homepage.name=Minecraft"
+      - "homepage.icon=minecraft.png"
+      - "homepage.href=http://localhost:25565"
+      - "homepage.description=Serveur Minecraft Veka"
 
   watchtower:
     image: containrrr/watchtower:latest
@@ -372,6 +475,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     # Vérifie toutes les 3600 secondes (1 heure) et supprime les anciennes images
     command: --interval 3600 --cleanup
+    labels:
+      - "homepage.group=Admin"
+      - "homepage.name=Watchtower"
+      - "homepage.icon=watchtower.png"
+      - "homepage.description=Mises à jour automatiques des conteneurs"
 
 
 #  ai-toolkit:
@@ -396,4 +504,3 @@ services:
 #            - driver: nvidia
 #              count: all
 #              capabilities: [gpu]
-
