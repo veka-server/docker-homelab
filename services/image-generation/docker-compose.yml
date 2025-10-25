@@ -5,21 +5,21 @@ services:
     ports:
       - "8188:8188"
     volumes:
-      - /home/veka/models/checkpoints:/app/comfyui/models/checkpoints
-      - /home/veka/models/clip:/app/comfyui/models/clip
-      - /home/veka/models/clip_vision:/app/comfyui/models/clip_vision
-      - /home/veka/models/unet:/app/comfyui/models/unet
-      - /home/veka/models/vae:/app/comfyui/models/vae
-      - /home/veka/models/loras:/app/comfyui/models/loras
-      - /home/veka/models/upscale_models:/app/comfyui/models/upscale_models
-      - /home/veka/models/controlnet:/app/comfyui/models/controlnet
-      - /home/veka/models/output:/app/comfyui/output
-      - /home/veka/models/LLM:/app/comfyui/models/LLM
-      - /home/veka/models/diffusion_models:/app/comfyui/models/diffusion_models
-      - /home/veka/models/text_encoders:/app/comfyui/models/text_encoders
-      - /home/veka/models/Joy_caption_two/cgrkzexw-599808:/app/comfyui/models/Joy_caption_two
+      -${ROOT_PATH}/models/checkpoints:/app/comfyui/models/checkpoints
+      - ${ROOT_PATH}/models/clip:/app/comfyui/models/clip
+      - ${ROOT_PATH}/models/clip_vision:/app/comfyui/models/clip_vision
+      - ${ROOT_PATH}/models/unet:/app/comfyui/models/unet
+      - ${ROOT_PATH}/models/vae:/app/comfyui/models/vae
+      - ${ROOT_PATH}/models/loras:/app/comfyui/models/loras
+      - ${ROOT_PATH}/models/upscale_models:/app/comfyui/models/upscale_models
+      - ${ROOT_PATH}/models/controlnet:/app/comfyui/models/controlnet
+      - ${ROOT_PATH}/models/output:/app/comfyui/output
+      - ${ROOT_PATH}/models/LLM:/app/comfyui/models/LLM
+      - ${ROOT_PATH}/models/diffusion_models:/app/comfyui/models/diffusion_models
+      - ${ROOT_PATH}/models/text_encoders:/app/comfyui/models/text_encoders
+      - ${ROOT_PATH}/models/Joy_caption_two/cgrkzexw-599808:/app/comfyui/models/Joy_caption_two
       - comfyui-inputs:/app/comfyui/input:rw
-      - /home/veka/models/workflow:/app/comfyui/user/default/workflows
+      - ${ROOT_PATH}/models/workflow:/app/comfyui/user/default/workflows
     networks:
       - no-internet
     restart: unless-stopped
@@ -42,7 +42,7 @@ services:
     image: ghcr.io/veka-server/docker-download-models:latest
     container_name: docker-download-models
     volumes:
-      - /home/veka/models:/models
+      - ${ROOT_PATH}/models:/models
     restart: no
     labels:
       - "homepage.group=AI & Image Generation"
