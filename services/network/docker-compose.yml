@@ -70,8 +70,8 @@ services:
       - "8080:8080"  # Dashboard Traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./services/traefik/traefik.yml:/traefik.yml:ro
-      - ./services/traefik/dynamic.yml:/dynamic.yml:ro
+      - ./config-traefik/traefik.yml:/traefik.yml:ro
+      - ./config-traefik/dynamic.yml:/dynamic.yml:ro
       - ${ROOT_PATH}/traefik/acme.json:/acme.json
     networks:
       - custom-network
