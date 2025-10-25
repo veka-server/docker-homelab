@@ -59,6 +59,32 @@ services:
       - "homepage.description=Serveur web Nginx"
       - "homepage.weight=2"
 
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Dashboard Traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./services/traefik/traefik.yml:/traefik.yml:ro
+      - ./services/traefik/dynamic.yml:/dynamic.yml:ro
+      - ${ROOT_PATH}/traefik/acme.json:/acme.json
+    networks:
+      - custom-network
+      - no-internet
+    env_file:
+      - ../../.env
+    restart: unless-stopped
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=Traefik"
+      - "homepage.icon=traefik.png"
+      - "homepage.href=http://traefik.loc.ovh"
+      - "homepage.description=Reverse Proxy et Load Balancer"
+
   tor:
     image: ghcr.io/veka-server/docker-tor-proxy:latest
     container_name: tor
