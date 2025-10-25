@@ -13,6 +13,10 @@ networks:
     driver: bridge
     internal: true
     
+  traefik:
+    driver: bridge
+    internal: true    
+
   internal-fixed:
     driver: bridge
     internal: true

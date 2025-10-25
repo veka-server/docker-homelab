@@ -32,6 +32,7 @@ services:
     networks:
       - no-internet
       - mcp-network
+      - traefik
     restart: unless-stopped
     labels:
       - "homepage.group=AI & LLM"
