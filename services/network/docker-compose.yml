@@ -1,0 +1,102 @@
+services:
+  dns:
+    build:
+      context: https://github.com/veka-server/docker-dns.git#main
+    container_name: dns
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    networks:
+      - custom-network
+    restart: unless-stopped
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=DNS"
+      - "homepage.icon=pihole.png"
+      - "homepage.href=http://dns:53"
+      - "homepage.description=Serveur DNS"
+
+  dnsrelay:
+    image: 4km3/dnsmasq:latest
+    container_name: dnsrelay
+    command:
+      - --no-daemon
+      - --log-queries
+      - --server=192.168.1.182
+      - --listen-address=0.0.0.0
+      - --bind-interfaces
+      - --address=/.loc.ovh/172.125.0.12
+    restart: unless-stopped
+    networks:
+      internal-fixed:
+        ipv4_address: 172.125.0.11
+      custom-network:
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=DNS Relay"
+      - "homepage.icon=pihole.png"
+      - "homepage.description=Relais DNS Dnsmasq"
+
+  nginx-reverse-proxy:
+    image: ghcr.io/veka-server/docker-nginx-reverse-proxy:latest
+    container_name: nginx-reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /home/veka/nginx-ssl:/etc/nginx/ssl
+      - /home/veka/nginx-htpasswd:/etc/nginx/.htpasswd:ro
+    restart: unless-stopped
+    networks:
+      internal-fixed:
+        ipv4_address: 172.125.0.12
+      no-internet:
+      custom-network:
+    labels:
+      - "homepage.group=Web Servers"
+      - "homepage.name=Nginx Reverse Proxy"
+      - "homepage.icon=nginx.png"
+      - "homepage.href=http://localhost:8080"
+      - "homepage.description=Serveur web Nginx"
+      - "homepage.weight=2"
+
+  tor:
+    image: ghcr.io/veka-server/docker-tor-proxy:latest
+    container_name: tor
+    restart: always
+    networks:
+      custom-network:
+      no-internet:
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=Tor Proxy"
+      - "homepage.icon=tor.png"
+      - "homepage.description=Proxy Tor anonyme"
+
+  hyphanet:
+    container_name: hyphanet
+    build:
+      context: https://github.com/PoulLorca/hyphanet-docker.git#main
+      args:
+        HYPHANET_VERSION: "1503"
+    restart: always
+    volumes:
+      - hyphanet_data:/data
+    networks:
+      - custom-network
+    labels:
+      - "homepage.group=Network"
+      - "homepage.name=Hyphanet"
+      - "homepage.icon=network.png"
+      - "homepage.description=Réseau P2P Hyphanet"
+
+volumes:
+  hyphanet_data:
+
+networks:
+  no-internet:
+    external: true
+  internal-fixed:
+    external: true
+  custom-network:
+    external: true
