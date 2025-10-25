@@ -39,7 +39,7 @@ services:
     volumes:
       - ${UPLOAD_LOCATION}:/data
       - /etc/localtime:/etc/localtime:ro
-      - /home/veka/models/output:/upload:ro
+      - ${ROOT_PATH}/models/output:/upload:ro
     env_file:
       - .env
     ports:
