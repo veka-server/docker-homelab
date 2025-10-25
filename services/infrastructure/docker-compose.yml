@@ -20,7 +20,7 @@ services:
       - HOMEPAGE_DOCKER=1
       - DOCKER_HOST=unix:///var/run/docker.sock
     networks:
-      - custom-network
+      - no-internet
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homepage.rule=Host(`homepage.local`)"
