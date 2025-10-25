@@ -59,9 +59,3 @@ services:
 
 volumes:
   portainer_data:
-
-networks:
-  no-internet:
-    external: true
-  custom-network:
-    external: true
