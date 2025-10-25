@@ -27,6 +27,8 @@ services:
       - "traefik.http.routers.brave.entrypoints=web,websecure"
       - "traefik.http.routers.brave.tls=true"
       - "traefik.http.services.brave.loadbalancer.server.port=6901"
+      - "traefik.http.routers.brave.middlewares=websocket"
+
 
   browser-tor-novnc:
     image: ghcr.io/veka-server/docker-surf-no-vnc:main

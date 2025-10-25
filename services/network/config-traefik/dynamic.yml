@@ -15,7 +15,12 @@ http:
       basicAuth:
         users:
           - "admin:$apr1$tN9Hh8cT$1qZKaiSA71yY5CZpKtdbx."
-
+    websocket:
+      headers:
+        customRequestHeaders:
+          Connection: "Upgrade"
+          Upgrade: "websocket"
+          
 tls:
   certificates:
     - certFile: /certs/fullchain.pem
