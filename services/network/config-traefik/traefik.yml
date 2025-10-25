@@ -16,7 +16,7 @@ providers:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
     watch: true
-    network: no-internet
+    network: custom-network
   file:
     filename: /dynamic.yml
     watch: true

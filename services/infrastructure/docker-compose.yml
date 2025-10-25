@@ -21,6 +21,7 @@ services:
       - DOCKER_HOST=unix:///var/run/docker.sock
     networks:
       - no-internet
+      - custom-network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homepage.rule=Host(`loc.ovh`)"
