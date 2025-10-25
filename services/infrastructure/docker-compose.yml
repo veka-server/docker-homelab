@@ -11,6 +11,7 @@ services:
       - ./config-homepage/services.yaml:/app/config/services.yaml
       - ./config-homepage/settings.yaml:/app/config/settings.yaml
       - ./config-homepage/widgets.yaml:/app/config/widgets.yaml
+      - ./config-homepage/icons:/app/public/icons
     restart: unless-stopped
     environment:
       - TZ=Europe/Paris
