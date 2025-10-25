@@ -1,0 +1,86 @@
+services:
+  database:
+    container_name: immich_postgres
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:32324a2f41df5de9efe1af166b7008c3f55646f8d0e00d9550c16c9822366b4a
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+    volumes:
+      - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
+    shm_size: 128mb
+    restart: always
+    networks:
+      - no-internet
+    labels:
+      - "homepage.group=Databases"
+      - "homepage.name=PostgreSQL Immich"
+      - "homepage.icon=postgres.png"
+      - "homepage.description=Base de données PostgreSQL pour Immich"
+
+  redis:
+    container_name: immich_redis
+    image: docker.io/valkey/valkey:8-bookworm@sha256:5b8f8c333bef895c925f56629d6ba90aea95a4f7391f62411e625267c600b19c
+    healthcheck:
+      test: redis-cli ping || exit 1
+    restart: always
+    networks:
+      - no-internet
+    labels:
+      - "homepage.group=Databases"
+      - "homepage.name=Redis/Valkey"
+      - "homepage.icon=redis.png"
+      - "homepage.description=Cache Redis pour Immich"
+
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    volumes:
+      - ${UPLOAD_LOCATION}:/data
+      - /etc/localtime:/etc/localtime:ro
+      - /home/veka/models/output:/upload:ro
+    env_file:
+      - .env
+    ports:
+      - '2283:2283'
+    depends_on:
+      - redis
+      - database
+    restart: always
+    healthcheck:
+      disable: false
+    networks:
+      - no-internet
+    labels:
+      - "homepage.group=Media Management"
+      - "homepage.name=Immich"
+      - "homepage.icon=immich.png"
+      - "homepage.href=http://localhost:2283"
+      - "homepage.description=Galerie photos et vidéos"
+      - "homepage.weight=1"
+
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    volumes:
+      - immich-model-cache:/cache
+    env_file:
+      - .env
+    restart: always
+    healthcheck:
+      disable: false
+    networks:
+      - no-internet
+    labels:
+      - "homepage.group=AI & LLM"
+      - "homepage.name=Immich ML"
+      - "homepage.icon=immich.png"
+      - "homepage.description=Machine Learning pour Immich"
+
+volumes:
+  immich-model-cache:
+
+networks:
+  no-internet:
+    external: true
