@@ -27,8 +27,8 @@ services:
       - OFFLINE_MODE=1
     volumes:
       - ${ROOT_PATH}/open-webui:/app/backend/data
-    ports:
-      - "8080:8080"
+#    ports:
+#      - "8080:8080"
     networks:
       - no-internet
       - mcp-network
