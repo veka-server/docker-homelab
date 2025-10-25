@@ -16,7 +16,3 @@ services:
       - "homepage.icon=filebrowser.png"
       - "homepage.href=http://localhost:8080/filebrowser"
       - "homepage.description=Explorateur de fichiers"
-
-networks:
-  no-internet:
-    external: true
