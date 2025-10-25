@@ -16,6 +16,7 @@ networks:
   traefik:
     driver: bridge
     internal: true    
+    name: traefik
 
   internal-fixed:
     driver: bridge
