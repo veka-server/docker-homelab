@@ -1,0 +1,22 @@
+services:
+  explorer:
+    image: hurlenko/filebrowser
+    container_name: explorer
+    environment:
+      - FB_BASEURL=/filebrowser
+    volumes:
+      - /home/veka:/data/veka
+      - /home/veka/config-explorer:/config
+    networks:
+      - no-internet
+    restart: unless-stopped
+    labels:
+      - "homepage.group=Utilities"
+      - "homepage.name=File Explorer"
+      - "homepage.icon=filebrowser.png"
+      - "homepage.href=http://localhost:8080/filebrowser"
+      - "homepage.description=Explorateur de fichiers"
+
+networks:
+  no-internet:
+    external: true
