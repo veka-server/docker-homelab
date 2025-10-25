@@ -24,7 +24,7 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homepage.rule=Host(`loc.ovh`)"
+      - "traefik.http.routers.homepage.rule=Host(`hub.loc.ovh`)"
       - "traefik.http.routers.homepage.entrypoints=web,websecure"
       - "traefik.http.routers.homepage.tls=true"
       - "traefik.http.services.homepage.loadbalancer.server.port=3000"
@@ -60,6 +60,11 @@ services:
       - "homepage.icon=portainer.png"
       - "homepage.href=https://portainer.loc.ovh/"
       - "homepage.description=Gestionnaire Docker"
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.loc.ovh`)"
+      - "traefik.http.routers.portainer.entrypoints=web,websecure"
+      - "traefik.http.routers.portainer.tls=true"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9443"
 
 volumes:
   portainer_data:

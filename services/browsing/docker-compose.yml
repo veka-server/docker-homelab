@@ -21,6 +21,11 @@ services:
       - "homepage.icon=brave.png"
       - "homepage.href=https://brave.loc.ovh/"
       - "homepage.description=Navigateur Web VNC"
+      - "traefik.enable=true"
+      - "traefik.http.routers.brave.rule=Host(`brave.loc.ovh`)"
+      - "traefik.http.routers.brave.entrypoints=web,websecure"
+      - "traefik.http.routers.brave.tls=true"
+      - "traefik.http.services.brave.loadbalancer.server.port=6901"
 
   browser-tor-novnc:
     image: ghcr.io/veka-server/docker-surf-no-vnc:main
@@ -34,3 +39,8 @@ services:
       - "homepage.href=https://browser-tor-novnc.loc.ovh/vnc.html"
       - "homepage.icon=chromium.png"
       - "homepage.description=Navigateur Tor sans VNC"
+      - "traefik.enable=true"
+      - "traefik.http.routers.browser-tor-novnc.rule=Host(`browser-tor-novnc.loc.ovh`)"
+      - "traefik.http.routers.browser-tor-novnc.entrypoints=web,websecure"
+      - "traefik.http.routers.browser-tor-novnc.tls=true"
+      - "traefik.http.services.browser-tor-novnc.loadbalancer.server.port=6080"

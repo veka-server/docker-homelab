@@ -16,3 +16,8 @@ services:
       - "homepage.icon=filebrowser.png"
       - "homepage.href=https://explorer.loc.ovh/"
       - "homepage.description=Explorateur de fichiers"
+      - "traefik.enable=true"
+      - "traefik.http.routers.explorer.rule=Host(`explorer.loc.ovh`)"
+      - "traefik.http.routers.explorer.entrypoints=web,websecure"
+      - "traefik.http.routers.explorer.tls=true"
+      - "traefik.http.services.explorer.loadbalancer.server.port=8080"

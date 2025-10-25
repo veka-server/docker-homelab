@@ -2,8 +2,8 @@ services:
   comfyui:
     image: ghcr.io/veka-server/docker-comfyui:latest
     container_name: comfyui
-    ports:
-      - "8188:8188"
+#    ports:
+#      - "8188:8188"
     volumes:
       - ${ROOT_PATH}/models/checkpoints:/app/comfyui/models/checkpoints
       - ${ROOT_PATH}/models/clip:/app/comfyui/models/clip
@@ -37,6 +37,11 @@ services:
       - "homepage.href=https://comfyui.loc.ovh"
       - "homepage.description=Workflow basé sur les nœuds pour la génération d'images"
       - "homepage.weight=1"
+      - "traefik.enable=true"
+      - "traefik.http.routers.comfyui.rule=Host(`comfyui.loc.ovh`)"
+      - "traefik.http.routers.comfyui.entrypoints=web,websecure"
+      - "traefik.http.routers.comfyui.tls=true"
+      - "traefik.http.services.comfyui.loadbalancer.server.port=8188"
 
   docker-download-models:
     image: ghcr.io/veka-server/docker-download-models:latest

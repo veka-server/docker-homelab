@@ -36,31 +36,6 @@ services:
       - "homepage.icon=/icons/dns.png"
       - "homepage.description=Relais DNS Dnsmasq pour les navigateurs interne"
 
-
-  nginx-reverse-proxy:
-    image: ghcr.io/veka-server/docker-nginx-reverse-proxy:latest
-    container_name: nginx-reverse-proxy
-#    ports:
-#      - "80:80"
-#      - "443:443"
-    volumes:
-      - ${ROOT_PATH}/nginx-ssl:/etc/nginx/ssl
-      - ${ROOT_PATH}/nginx-htpasswd:/etc/nginx/.htpasswd:ro
-    restart: unless-stopped
-    networks:
-      internal-fixed:
-        ipv4_address: 172.125.0.12
-      no-internet:
-      custom-network:
-    labels:
-      - "homepage.group=Network"
-      - "homepage.name=Nginx Reverse Proxy"
-      - "homepage.icon=nginx.png"
-      - "homepage.href=https://hub.loc.ovh"
-      - "homepage.description=Serveur web Nginx"
-      - "homepage.weight=2"
-
-
   traefik:
     image: traefik:latest
     container_name: traefik
@@ -114,7 +89,13 @@ services:
       - "homepage.group=Network"
       - "homepage.name=Hyphanet"
       - "homepage.icon=/icons/hyphanet.png"
+      - "homepage.href=https://hyphanet.loc.ovh"
       - "homepage.description=Réseau P2P Hyphanet"
+      - "traefik.enable=true"
+      - "traefik.http.routers.hyphanet.rule=Host(`hyphanet.loc.ovh`)"
+      - "traefik.http.routers.hyphanet.entrypoints=web,websecure"
+      - "traefik.http.routers.hyphanet.tls=true"
+      - "traefik.http.services.hyphanet.loadbalancer.server.port=8123"
 
 volumes:
   hyphanet_data:
