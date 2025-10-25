@@ -3,7 +3,7 @@ services:
     image: ghcr.io/open-webui/mcpo:main
     container_name: mcpo-server
     volumes:
-      - ../mcpo-config.json:/app/config.json:ro
+      - ${ROOT_PATH}/mcpo-config.json:/app/config.json:ro
     command: >
       --port 8000
       --config /app/config.json
@@ -27,7 +27,7 @@ services:
       - HF_HUB_OFFLINE=1
       - OFFLINE_MODE=1
     volumes:
-      - ../open-webui:/app/backend/data
+      - ${ROOT_PATH}/open-webui:/app/backend/data
     ports:
       - "8080:8080"
     networks:
