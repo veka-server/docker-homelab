@@ -1,32 +1,17 @@
-# Configuration globale de Traefik
 global:
   checkNewVersion: true
   sendAnonymousUsage: false
 
-# Point d'entrée API et Dashboard
 api:
   dashboard: true
-  debug: true
+  insecure: true  # ← AJOUTER pour accès local
 
-# Points d'entrée (entrypoints)
 entryPoints:
   web:
     address: ":80"
   websecure:
     address: ":443"
-    http:
-      tls:
-        certResolver: letsencrypt
 
-# Ajouter un middleware de redirection
-http:
-  middlewares:
-    redirect-https:
-      redirectScheme:
-        scheme: https
-        permanent: true
-
-# Fournisseur Docker
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
@@ -37,19 +22,5 @@ providers:
     filename: /dynamic.yml
     watch: true
 
-# Configuration ACME (Let's Encrypt)
-certificatesResolvers:
-  letsencrypt:
-    acme:
-      email: ${ACME_EMAIL:-admin@loc.ovh}
-      storage: /acme.json
-      httpChallenge:
-        entryPoint: web
-
-# Logs
 log:
   level: INFO
-  filePath: /var/log/traefik/traefik.log
-
-accessLog:
-  filePath: /var/log/traefik/access.log
