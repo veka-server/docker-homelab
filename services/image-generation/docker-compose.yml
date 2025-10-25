@@ -1,0 +1,46 @@
+services:
+  comfyui:
+    image: ghcr.io/veka-server/docker-comfyui:latest
+    container_name: comfyui
+    ports:
+      - "8188:8188"
+    volumes:
+      - /home/veka/models/checkpoints:/app/comfyui/models/checkpoints
+      - /home/veka/models/clip:/app/comfyui/models/clip
+      - /home/veka/models/clip_vision:/app/comfyui/models/clip_vision
+      - /home/veka/models/unet:/app/comfyui/models/unet
+      - /home/veka/models/vae:/app/comfyui/models/vae
+      - /home/veka/models/loras:/app/comfyui/models/loras
+      - /home/veka/models/upscale_models:/app/comfyui/models/upscale_models
+      - /home/veka/models/controlnet:/app/comfyui/models/controlnet
+      - /home/veka/models/output:/app/comfyui/output
+      - /home/veka/models/LLM:/app/comfyui/models/LLM
+      - /home/veka/models/diffusion_models:/app/comfyui/models/diffusion_models
+      - /home/veka/models/text_encoders:/app/comfyui/models/text_encoders
+      - /home/veka/models/Joy_caption_two/cgrkzexw-599808:/app/comfyui/models/Joy_caption_two
+      - comfyui-inputs:/app/comfyui/input:rw
+      - /home/veka/models/workflow:/app/comfyui/user/default/workflows
+    networks:
+      - no-internet
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    labels:
+      - "homepage.group=AI & Image Generation"
+      - "homepage.name=ComfyUI"
+      - "homepage.icon=comfyui.png"
+      - "homepage.href=http://localhost:8188"
+      - "homepage.description=Workflow basé sur les nœuds pour la génération d'images"
+      - "homepage.weight=1"
+
+volumes:
+  comfyui-inputs:
+
+networks:
+  no-internet:
+    external: true
