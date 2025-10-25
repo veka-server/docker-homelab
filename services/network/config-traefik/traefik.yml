@@ -1,10 +1,9 @@
 global:
-  checkNewVersion: true
+  checkNewVersion: false
   sendAnonymousUsage: false
 
 api:
   dashboard: true
-  insecure: true  # ← AJOUTER pour accès local
 
 entryPoints:
   web:
@@ -17,7 +16,7 @@ providers:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
     watch: true
-    network: custom-network
+    network: no-internet
   file:
     filename: /dynamic.yml
     watch: true

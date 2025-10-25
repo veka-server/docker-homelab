@@ -75,7 +75,6 @@ services:
 #      - ${ROOT_PATH}/traefik/acme.json:/acme.json
       - ${ROOT_PATH}/traefik/certs:/certs
     networks:
-      - custom-network
       - no-internet
     env_file:
       - ../../.env
