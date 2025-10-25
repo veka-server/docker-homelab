@@ -12,6 +12,7 @@ networks:
   no-internet:
     driver: bridge
     internal: true
+    name: no-internet
     
   traefik:
     driver: bridge
@@ -24,10 +25,13 @@ networks:
     ipam:
       config:
         - subnet: 172.125.0.0/24
+    name: internal-fixed
 
   custom-network:
     driver: bridge
+    name: custom-network
     
   mcp-network:
     driver: bridge
     internal: true
+    name: mcp-network
