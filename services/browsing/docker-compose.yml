@@ -33,9 +33,3 @@ services:
       - "homepage.name=Browser Tor NoVNC"
       - "homepage.icon=chromium.png"
       - "homepage.description=Navigateur Tor sans VNC"
-
-networks:
-  no-internet:
-    external: true
-  internal-fixed:
-    external: true
