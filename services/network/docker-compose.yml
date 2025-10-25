@@ -74,11 +74,6 @@ services:
       - ./config-traefik/dynamic.yml:/dynamic.yml:ro
 #      - ${ROOT_PATH}/traefik/acme.json:/acme.json
       - ${ROOT_PATH}/traefik/certs:/certs
-    environment:
-      - OVH_ENDPOINT=${OVH_ENDPOINT}
-      - OVH_APPLICATION_KEY=${OVH_APPLICATION_KEY}
-      - OVH_APPLICATION_SECRET=${OVH_APPLICATION_SECRET}
-      - OVH_CONSUMER_KEY=${OVH_CONSUMER_KEY}
     networks:
       - custom-network
       - no-internet
