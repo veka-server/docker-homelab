@@ -28,6 +28,35 @@ volumes:
 
 services:
 
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ../config-homepage:/app/config
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+      - HOMEPAGE_ALLOWED_HOSTS=*
+      - HOMEPAGE_VAR_TITLE=Dashboard_de_test
+      - HOMEPAGE_DOCKER=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    labels:
+      - "homepage.group=Dashboards"
+      - "homepage.name=Homepage Dashboard de test"
+      - "homepage.icon=homepage.png"
+      - "homepage.href=http://dd.loc.ovh:3000/"
+      - "homepage.description=Mon tableau de bord principal"
+      - "homepage.weight=1"
+
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.rule=Host(`homepage.local`)"
+      - "traefik.http.routers.homepage.entrypoints=web"
+      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
+
+
   mcpo:
     image: ghcr.io/open-webui/mcpo:main
     container_name: mcpo-server
@@ -93,7 +122,14 @@ services:
         ipv4_address: 172.125.0.12
       no-internet:
       custom-network:
-
+    labels:
+      - "homepage.group=Web Servers"
+      - "homepage.name=Nginx"
+      - "homepage.icon=nginx.png"
+      - "homepage.href=http://localhost:8080"
+      - "homepage.description=Serveur web Nginx"
+      - "homepage.weight=2"
+      
   comfyui:
     image: ghcr.io/veka-server/docker-comfyui:latest
     container_name: comfyui
