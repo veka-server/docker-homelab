@@ -38,7 +38,7 @@ services:
       - "homepage.group=AI & LLM"
       - "homepage.name=Open WebUI"
       - "homepage.icon=open-webui-light.png"
-      - "homepage.href=http://localhost:8080"
+      - "homepage.href=https://open-webui.loc.ovh"
       - "homepage.description=Interface Web pour les modèles LLM"
       - "homepage.weight=1"
 
@@ -65,8 +65,7 @@ services:
     labels:
       - "homepage.group=AI & LLM"
       - "homepage.name=Ollama"
-      - "homepage.icon=ollama.png"
-      - "homepage.href=http://localhost:11434"
+      - "homepage.icon=ollama-dark.png"
       - "homepage.description=Moteur LLM local"
       - "homepage.weight=2"
 
