@@ -24,9 +24,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homepage.rule=Host(`loc.ovh`)"
-      - "traefik.http.routers.open-webui.entrypoints=web,websecure"
-      - "traefik.http.routers.open-webui.tls=true"
-      - "traefik.http.services.open-webui.loadbalancer.server.port=3000"
+      - "traefik.http.routers.homepage.entrypoints=web,websecure"
+      - "traefik.http.routers.homepage.tls=true"
+      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
 
   watchtower:
     image: containrrr/watchtower:latest
