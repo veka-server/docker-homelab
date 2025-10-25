@@ -14,7 +14,7 @@ services:
     networks:
       - no-internet
     labels:
-      - "homepage.group=Databases"
+      - "homepage.group=Immich"
       - "homepage.name=PostgreSQL Immich"
       - "homepage.icon=postgres.png"
       - "homepage.description=Base de données PostgreSQL pour Immich"
@@ -28,7 +28,7 @@ services:
     networks:
       - no-internet
     labels:
-      - "homepage.group=Databases"
+      - "homepage.group=Immich"
       - "homepage.name=Redis/Valkey"
       - "homepage.icon=redis.png"
       - "homepage.description=Cache Redis pour Immich"
@@ -53,7 +53,7 @@ services:
     networks:
       - no-internet
     labels:
-      - "homepage.group=Media Management"
+      - "homepage.group=Immich"
       - "homepage.name=Immich"
       - "homepage.icon=immich.png"
       - "homepage.href=http://localhost:2283"
@@ -73,7 +73,7 @@ services:
     networks:
       - no-internet
     labels:
-      - "homepage.group=AI & LLM"
+      - "homepage.group=Immich"
       - "homepage.name=Immich ML"
       - "homepage.icon=immich.png"
       - "homepage.description=Machine Learning pour Immich"
