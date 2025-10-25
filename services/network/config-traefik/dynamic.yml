@@ -18,9 +18,9 @@ http:
     websocket:
       headers:
         customRequestHeaders:
-          Connection: "Upgrade"
+          Connection: "upgrade"
           Upgrade: "websocket"
-          
+
 tls:
   certificates:
     - certFile: /certs/fullchain.pem
