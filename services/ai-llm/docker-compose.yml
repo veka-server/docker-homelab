@@ -42,9 +42,9 @@ services:
       - "homepage.weight=1"
       - "traefik.enable=true"
       - "traefik.http.routers.open-webui.rule=Host(`open-webui.loc.ovh`)"
-      - "traefik.http.routers.open-webui.entrypoints=web"
-#      - "traefik.http.routers.open-webui.entrypoints=web,websecure"
-#      - "traefik.http.routers.open-webui.tls.certresolver=letsencrypt"
+#      - "traefik.http.routers.open-webui.entrypoints=web"
+      - "traefik.http.routers.open-webui.entrypoints=web,websecure"
+      - "traefik.http.routers.open-webui.tls=true"
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
 
   ollama:

@@ -5,8 +5,10 @@ http:
       entrypoints:
         - web
       service: api@internal
-#      tls:
-#        certResolver: letsencrypt
+      tls:
+        certificates:
+          - certFile: /certs/fullchain.pem
+            keyFile: /certs/privkey.pem
       middlewares:
         - auth
 
