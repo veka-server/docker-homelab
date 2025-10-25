@@ -52,6 +52,7 @@ services:
       disable: false
     networks:
       - no-internet
+      - traefik
     labels:
       - "homepage.group=Immich"
       - "homepage.name=Immich"

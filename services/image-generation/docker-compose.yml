@@ -22,6 +22,7 @@ services:
       - ${ROOT_PATH}/models/workflow:/app/comfyui/user/default/workflows
     networks:
       - no-internet
+      - traefik
     restart: unless-stopped
     deploy:
       resources:

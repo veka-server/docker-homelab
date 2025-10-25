@@ -13,6 +13,7 @@ services:
       no-internet:
       internal-fixed:
         ipv4_address: 172.125.0.13
+      traefik:
     dns:
       - 172.125.0.11
     labels:
@@ -33,6 +34,7 @@ services:
     restart: unless-stopped
     networks:
       - no-internet
+      - traefik
     labels:
       - "homepage.group=Browsing"
       - "homepage.name=Browser Tor NoVNC"
