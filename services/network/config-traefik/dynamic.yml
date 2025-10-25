@@ -21,6 +21,10 @@ http:
           Connection: "upgrade"
           Upgrade: "websocket"
 
+  serversTransports:
+    skip-verify:
+      insecureSkipVerify: true
+      
 tls:
   certificates:
     - certFile: /certs/fullchain.pem
