@@ -36,12 +36,13 @@ services:
       - "homepage.icon=/icons/dns.png"
       - "homepage.description=Relais DNS Dnsmasq pour les navigateurs interne"
 
+
   nginx-reverse-proxy:
     image: ghcr.io/veka-server/docker-nginx-reverse-proxy:latest
     container_name: nginx-reverse-proxy
-    ports:
-      - "80:80"
-      - "443:443"
+#    ports:
+#      - "80:80"
+#      - "443:443"
     volumes:
       - ${ROOT_PATH}/nginx-ssl:/etc/nginx/ssl
       - ${ROOT_PATH}/nginx-htpasswd:/etc/nginx/.htpasswd:ro
