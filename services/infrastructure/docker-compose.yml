@@ -22,7 +22,6 @@ services:
     networks:
       - no-internet
       - traefik
-      - traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homepage.rule=Host(`hub.loc.ovh`)"
