@@ -16,7 +16,7 @@ providers:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
     watch: true
-    network: traefik
+    network: docker-homelab_traefik
   file:
     filename: /dynamic.yml
     watch: true
