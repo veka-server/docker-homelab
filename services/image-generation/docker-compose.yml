@@ -38,6 +38,19 @@ services:
       - "homepage.description=Workflow basé sur les nœuds pour la génération d'images"
       - "homepage.weight=1"
 
+  docker-download-models:
+    image: ghcr.io/veka-server/docker-download-models:latest
+    container_name: docker-download-models
+    volumes:
+      - /home/veka/models:/models
+    restart: no
+    labels:
+      - "homepage.group=AI & Image Generation"
+      - "homepage.name=Download Models"
+      - "homepage.icon=download.png"
+      - "homepage.description=Gestionnaire de téléchargement de modèles"
+
+
 volumes:
   comfyui-inputs:
 
