@@ -1,0 +1,82 @@
+services:
+  mcpo:
+    image: ghcr.io/open-webui/mcpo:main
+    container_name: mcpo-server
+    volumes:
+      - ../mcpo-config.json:/app/config.json:ro
+    command: >
+      --port 8000
+      --config /app/config.json
+    restart: unless-stopped
+    networks:
+      - custom-network
+      - mcp-network
+    labels:
+      - "homepage.group=AI & LLM"
+      - "homepage.name=MCPO"
+      - "homepage.icon=openwebui.png"
+      - "homepage.href=http://mcpo:8000"
+      - "homepage.description=MCP Protocol Server"
+
+  open-webui-standalone:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui-standalone
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - ENABLE_OPENAI_API=0
+      - HF_HUB_OFFLINE=1
+      - OFFLINE_MODE=1
+    volumes:
+      - ../open-webui:/app/backend/data
+    ports:
+      - "8080:8080"
+    networks:
+      - no-internet
+      - mcp-network
+    restart: unless-stopped
+    labels:
+      - "homepage.group=AI & LLM"
+      - "homepage.name=Open WebUI"
+      - "homepage.icon=openwebui.png"
+      - "homepage.href=http://localhost:8080"
+      - "homepage.description=Interface Web pour les modèles LLM"
+      - "homepage.weight=1"
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - OLLAMA_KEEP_ALIVE=0
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    networks:
+      - no-internet
+      - custom-network
+    restart: unless-stopped
+    labels:
+      - "homepage.group=AI & LLM"
+      - "homepage.name=Ollama"
+      - "homepage.icon=ollama.png"
+      - "homepage.href=http://localhost:11434"
+      - "homepage.description=Moteur LLM local"
+      - "homepage.weight=2"
+
+volumes:
+  ollama:
+
+networks:
+  no-internet:
+    external: true
+  custom-network:
+    external: true
+  mcp-network:
+    external: true
