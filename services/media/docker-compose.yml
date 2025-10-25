@@ -41,7 +41,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${ROOT_PATH}/models/output:/upload:ro
     env_file:
-      - .env
+      - ../../.env
     ports:
       - '2283:2283'
     depends_on:
@@ -66,7 +66,7 @@ services:
     volumes:
       - immich-model-cache:/cache
     env_file:
-      - .env
+      - ../../.env
     restart: always
     healthcheck:
       disable: false
