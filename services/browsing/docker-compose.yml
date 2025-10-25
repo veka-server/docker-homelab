@@ -29,7 +29,7 @@ services:
       - "traefik.http.services.brave.loadbalancer.server.port=6901"
 #      - "traefik.http.routers.brave.middlewares=websocket"
       - "traefik.http.services.brave.loadbalancer.passHostHeader=true"
-      - "traefik.http.services.brave.loadbalancer.server.scheme=https"
+#      - "traefik.http.services.brave.loadbalancer.server.scheme=https"
 
 
   browser-tor-novnc:
