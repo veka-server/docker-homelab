@@ -1,27 +1,22 @@
-# Configuration dynamique de Traefik
-
-# Routeurs
 http:
   routers:
     traefik-dashboard:
       rule: "Host(`traefik.loc.ovh`)"
       entrypoints:
-        - web
         - websecure
       service: api@internal
+      tls:
+        certResolver: letsencrypt
       middlewares:
         - auth
 
-# Middlewares
   middlewares:
+    redirect-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    
     auth:
       basicAuth:
         users:
-          - "admin:$$2y$$05$$test"  # Générer avec: echo $(htpasswd -nB admin) | sed -e s/\\$/\\$\\$/g
-
-# TLS
-tls:
-  options:
-    default:
-      minVersion: VersionTLS12
-      sslOptions: "CipherSuites=['TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256']"
+          - "admin:$$2y$$05$$test"
