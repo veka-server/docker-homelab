@@ -37,7 +37,7 @@ services:
     labels:
       - "homepage.group=AI & LLM"
       - "homepage.name=Open WebUI"
-      - "homepage.icon=openwebui.png"
+      - "homepage.icon=open-webui-light.png"
       - "homepage.href=http://localhost:8080"
       - "homepage.description=Interface Web pour les modèles LLM"
       - "homepage.weight=1"
