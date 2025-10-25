@@ -1,0 +1,67 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config-homepage/bookmarks.yaml:/app/config/bookmarks.yaml
+      - ./config-homepage/docker.yaml:/app/config/docker.yaml
+      - ./config-homepage/services.yaml:/app/config/services.yaml
+      - ./config-homepage/settings.yaml:/app/config/settings.yaml
+      - ./config-homepage/widgets.yaml:/app/config/widgets.yaml
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+      - HOMEPAGE_ALLOWED_HOSTS=*
+      - HOMEPAGE_VAR_TITLE=Dashboard_de_test
+      - HOMEPAGE_DOCKER=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    networks:
+      - custom-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.rule=Host(`homepage.local`)"
+      - "traefik.http.routers.homepage.entrypoints=web"
+      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 3600 --cleanup
+    networks:
+      - custom-network
+    labels:
+      - "homepage.group=Admin"
+      - "homepage.name=Watchtower"
+      - "homepage.icon=watchtower.png"
+      - "homepage.description=Mises à jour automatiques des conteneurs"
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - no-internet
+      - custom-network
+    restart: unless-stopped
+    labels:
+      - "homepage.group=Admin"
+      - "homepage.name=Portainer"
+      - "homepage.icon=portainer.png"
+      - "homepage.description=Gestionnaire Docker"
+
+volumes:
+  portainer_data:
+
+networks:
+  no-internet:
+    external: true
+  custom-network:
+    external: true
