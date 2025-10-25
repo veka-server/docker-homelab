@@ -25,5 +25,4 @@ services:
       - "homepage.group=Gaming"
       - "homepage.name=Minecraft"
       - "homepage.icon=minecraft.png"
-      - "homepage.href=http://localhost:25565"
       - "homepage.description=Serveur Minecraft Veka"

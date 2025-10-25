@@ -56,6 +56,7 @@ services:
       - "homepage.group=Admin"
       - "homepage.name=Portainer"
       - "homepage.icon=portainer.png"
+      - "homepage.href=https://portainer.loc.ovh/"
       - "homepage.description=Gestionnaire Docker"
 
 volumes:

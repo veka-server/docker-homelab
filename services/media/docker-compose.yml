@@ -56,7 +56,7 @@ services:
       - "homepage.group=Immich"
       - "homepage.name=Immich"
       - "homepage.icon=immich.png"
-      - "homepage.href=http://localhost:2283"
+      - "homepage.href=https://immich.loc.ovh/"
       - "homepage.description=Galerie photos et vidéos"
       - "homepage.weight=1"
 

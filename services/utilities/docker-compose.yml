@@ -14,5 +14,5 @@ services:
       - "homepage.group=Utilities"
       - "homepage.name=File Explorer"
       - "homepage.icon=filebrowser.png"
-      - "homepage.href=http://localhost:8080/filebrowser"
+      - "homepage.href=https://explorer.loc.ovh/"
       - "homepage.description=Explorateur de fichiers"
