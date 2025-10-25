@@ -34,7 +34,7 @@ services:
       - "homepage.group=AI & Image Generation"
       - "homepage.name=ComfyUI"
       - "homepage.icon=/icons/comfyui.png"
-      - "homepage.href=http://localhost:8188"
+      - "homepage.href=https://comfyui.loc.ovh"
       - "homepage.description=Workflow basé sur les nœuds pour la génération d'images"
       - "homepage.weight=1"
 

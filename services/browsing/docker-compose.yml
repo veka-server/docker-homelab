@@ -19,7 +19,7 @@ services:
       - "homepage.group=Browsing"
       - "homepage.name=Brave Browser"
       - "homepage.icon=brave.png"
-      - "homepage.href=http://localhost:6901"
+      - "homepage.href=https://brave.loc.ovh/"
       - "homepage.description=Navigateur Web VNC"
 
   browser-tor-novnc:
@@ -31,5 +31,6 @@ services:
     labels:
       - "homepage.group=Browsing"
       - "homepage.name=Browser Tor NoVNC"
+      - "homepage.href=https://browser-tor-novnc.loc.ovh/vnc.html"
       - "homepage.icon=chromium.png"
       - "homepage.description=Navigateur Tor sans VNC"

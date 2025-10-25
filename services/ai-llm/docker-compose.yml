@@ -15,7 +15,6 @@ services:
       - "homepage.group=AI & LLM"
       - "homepage.name=MCPO"
       - "homepage.icon=/icons/mcp.png"
-      - "homepage.href=http://mcpo:8000"
       - "homepage.description=MCP Protocol Server"
 
   open-webui-standalone:
