@@ -19,7 +19,7 @@ services:
       LEVEL_TYPE: "DEFAULT"
       SERVER_PORT: "25565"
     volumes:
-      - ../minecraft-data:/data
+      - ${ROOT_PATH}/minecraft-data:/data
     restart: unless-stopped
     labels:
       - "homepage.group=Gaming"
