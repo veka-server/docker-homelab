@@ -3,10 +3,10 @@ http:
     traefik-dashboard:
       rule: "Host(`traefik.loc.ovh`)"
       entrypoints:
-        - websecure
+        - web
       service: api@internal
-      tls:
-        certResolver: letsencrypt
+#      tls:
+#        certResolver: letsencrypt
       middlewares:
         - auth
 
