@@ -35,7 +35,11 @@ services:
       - "3000:3000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ../config-homepage:/app/config
+      - ./config-homepage/bookmarks.yaml:/app/config/bookmarks.yaml
+      - ./config-homepage/docker.yaml:/app/config/docker.yaml
+      - ./config-homepage/services.yaml:/app/config/services.yaml
+      - ./config-homepage/settings.yaml:/app/config/settings.yaml
+      - ./config-homepage/widgets.yaml:/app/config/widgets.yaml
     restart: unless-stopped
     environment:
       - TZ=Europe/Paris
