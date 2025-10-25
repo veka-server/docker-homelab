@@ -5,7 +5,7 @@ services:
     ports:
       - "8188:8188"
     volumes:
-      -${ROOT_PATH}/models/checkpoints:/app/comfyui/models/checkpoints
+      - ${ROOT_PATH}/models/checkpoints:/app/comfyui/models/checkpoints
       - ${ROOT_PATH}/models/clip:/app/comfyui/models/clip
       - ${ROOT_PATH}/models/clip_vision:/app/comfyui/models/clip_vision
       - ${ROOT_PATH}/models/unet:/app/comfyui/models/unet
