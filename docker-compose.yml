@@ -1,5 +1,3 @@
-version: '3.8'
-
 include:
   - ./services/infrastructure/docker-compose.yml
   - ./services/ai-llm/docker-compose.yml
