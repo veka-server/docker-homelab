@@ -4,7 +4,9 @@ http:
       rule: "Host(`traefik.loc.ovh`)"
       entrypoints:
         - web
+        - websecure
       service: api@internal
+      tls: {}
       middlewares:
         - auth
 
