@@ -5,8 +5,8 @@ services:
     environment:
       - FB_BASEURL=/filebrowser
     volumes:
-      - /home/veka:/data/veka
-      - /home/veka/config-explorer:/config
+      - ${ROOT_PATH}:/data/veka
+      - ${ROOT_PATH}/config-explorer:/config
     networks:
       - no-internet
     restart: unless-stopped
