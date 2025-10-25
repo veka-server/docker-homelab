@@ -3,8 +3,15 @@
 
 - resources:
     cpu: true
+    cputemp: true
+    tempmin: 0 # optional, minimum cpu temp
+    tempmax: 100 # optional, maximum cpu temp
     memory: true
     disk: /
+    uptime: true
+    units: metric # only used by cpu temp, options: 'imperial' or 'metric'
+    refresh: 500 # optional, in ms
+    network: true # optional, uses 'default' if true or specify a network interface name
 
 - search:
     provider: duckduckgo
