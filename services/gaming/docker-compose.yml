@@ -27,7 +27,3 @@ services:
       - "homepage.icon=minecraft.png"
       - "homepage.href=http://localhost:25565"
       - "homepage.description=Serveur Minecraft Veka"
-
-networks:
-  no-internet:
-    external: true
