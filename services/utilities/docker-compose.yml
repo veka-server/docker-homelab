@@ -31,6 +31,9 @@ services:
       - traefik
     env_file:
       - ../../.env
+    volumes:
+      - ${ROOT_PATH}/ssps/.env.yaml:/var/www/html/.env.yaml
+      - ${ROOT_PATH}/ssps/bdd.db:/var/www/html/bdd.db
     restart: unless-stopped
     labels:
       - "homepage.group=Utilities"
