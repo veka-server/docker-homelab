@@ -38,7 +38,7 @@ services:
     labels:
       - "homepage.group=Utilities"
       - "homepage.name=SSPS"
-      - "homepage.icon=passwork.png"
+      - "homepage.icon=/icons/ssps.png"
       - "homepage.href=https://ssps.loc.ovh/"
       - "homepage.description=Gestionnaire de mot de passe"
       - "traefik.enable=true"
