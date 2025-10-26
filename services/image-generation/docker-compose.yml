@@ -43,6 +43,7 @@ services:
       - "traefik.http.routers.comfyui.entrypoints=web,websecure"
       - "traefik.http.routers.comfyui.tls=true"
       - "traefik.http.services.comfyui.loadbalancer.server.port=8188"
+      - "traefik.http.routers.comfyui.middlewares=comfyui-auth"
       - "traefik.http.middlewares.comfyui.basicauth.usersFile=/app/config/.htpasswd"
       - "traefik.http.middlewares.comfyui.basicauth.realm=Espace sécurisé"
 
