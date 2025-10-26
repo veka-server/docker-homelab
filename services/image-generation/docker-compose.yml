@@ -20,6 +20,7 @@ services:
       - ${ROOT_PATH}/models/Joy_caption_two/cgrkzexw-599808:/app/comfyui/models/Joy_caption_two
       - comfyui-inputs:/app/comfyui/input:rw
       - ${ROOT_PATH}/models/workflow:/app/comfyui/user/default/workflows
+      - ${ROOT_PATH}/nginx-htpasswd:/etc/nginx/.htpasswd:ro  # ← AJOUTER
     networks:
       - no-internet
       - traefik
@@ -43,7 +44,7 @@ services:
       - "traefik.http.routers.comfyui.entrypoints=web,websecure"
       - "traefik.http.routers.comfyui.tls=true"
       - "traefik.http.services.comfyui.loadbalancer.server.port=8188"
-      - "traefik.http.middlewares.comfyui.basicauth.usersFile=/home/veka/nginx-htpasswd"
+      - "traefik.http.middlewares.comfyui.basicauth.usersFile=/etc/nginx/.htpasswd"
       - "traefik.http.middlewares.comfyui.basicauth.realm=Espace sécurisé"
 
   docker-download-models:
