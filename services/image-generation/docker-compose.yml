@@ -20,7 +20,7 @@ services:
       - ${ROOT_PATH}/models/Joy_caption_two/cgrkzexw-599808:/app/comfyui/models/Joy_caption_two
       - comfyui-inputs:/app/comfyui/input:rw
       - ${ROOT_PATH}/models/workflow:/app/comfyui/user/default/workflows
-      - ${ROOT_PATH}/nginx-htpasswd:/app/config/.htpasswd:ro  # ← AJOUTER
+      - ${ROOT_PATH}/nginx-htpasswd:/app/config/.htpasswd
     networks:
       - no-internet
       - traefik
