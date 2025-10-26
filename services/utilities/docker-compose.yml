@@ -22,3 +22,26 @@ services:
       - "traefik.http.routers.explorer.entrypoints=web,websecure"
       - "traefik.http.routers.explorer.tls=true"
       - "traefik.http.services.explorer.loadbalancer.server.port=8080"
+
+  ssps:
+    image: ghcr.io/veka-server/ssps:master
+    container_name: ssps
+    ports:
+      - "12345:80"
+    networks:
+      - no-internet
+      - traefik
+    env_file:
+      - ../../.env
+    restart: unless-stopped
+    labels:
+      - "homepage.group=Utilities"
+      - "homepage.name=SSPS"
+      - "homepage.icon=passwork.png"
+      - "homepage.href=https://ssps.loc.ovh/"
+      - "homepage.description=Gestionnaire de mot de passe"
+      - "traefik.enable=true"
+      - "traefik.http.routers.ssps.rule=Host(`ssps.loc.ovh`)"
+      - "traefik.http.routers.ssps.entrypoints=web,websecure"
+      - "traefik.http.routers.ssps.tls=true"
+      - "traefik.http.services.ssps.loadbalancer.server.port=8080"
