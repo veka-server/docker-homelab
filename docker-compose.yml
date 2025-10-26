@@ -35,9 +35,3 @@ networks:
     driver: bridge
     internal: true
     name: mcp-network
-
-# Authentification GHCR
-x-registries:
-  ghcr.io:
-    username: ${GHCR_USERNAME}
-    password: ${GHCR_TOKEN}
