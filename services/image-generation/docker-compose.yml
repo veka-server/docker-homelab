@@ -43,6 +43,8 @@ services:
       - "traefik.http.routers.comfyui.entrypoints=web,websecure"
       - "traefik.http.routers.comfyui.tls=true"
       - "traefik.http.services.comfyui.loadbalancer.server.port=8188"
+      - "traefik.http.middlewares.comfyui.basicauth.usersFile= ${ROOT_PATH}/nginx-htpasswd"
+      - "traefik.http.middlewares.whoami-auth.basicauth.realm=Espace sécurisé"
 
   docker-download-models:
     image: ghcr.io/veka-server/docker-download-models:latest
