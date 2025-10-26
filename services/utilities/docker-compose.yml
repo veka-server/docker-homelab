@@ -26,8 +26,6 @@ services:
   ssps:
     image: ghcr.io/veka-server/ssps:master
     container_name: ssps
-    ports:
-      - "12345:80"
     networks:
       - no-internet
       - traefik
@@ -44,4 +42,4 @@ services:
       - "traefik.http.routers.ssps.rule=Host(`ssps.loc.ovh`)"
       - "traefik.http.routers.ssps.entrypoints=web,websecure"
       - "traefik.http.routers.ssps.tls=true"
-      - "traefik.http.services.ssps.loadbalancer.server.port=8080"
+      - "traefik.http.services.ssps.loadbalancer.server.port=80"
