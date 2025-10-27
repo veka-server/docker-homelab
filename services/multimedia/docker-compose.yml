@@ -10,8 +10,6 @@ services:
       - SOCKS_PROXY_VERSION=5
       - SOCKS_PROXY_HOST=tor
       - SOCKS_PROXY_PORT=9050
-    ports:
-      - 4568:4567
     restart: unless-stopped
     networks:
       - no-internet
@@ -27,5 +25,5 @@ services:
       - "traefik.http.routers.suwayomi_server.rule=Host(`suwayomi_server.loc.ovh`)"
       - "traefik.http.routers.suwayomi_server.entrypoints=web,websecure"
       - "traefik.http.routers.suwayomi_server.tls=true"
-      - "traefik.http.services.suwayomi_server.loadbalancer.server.port=2283"
+      - "traefik.http.services.suwayomi_server.loadbalancer.server.port=4567"
 
