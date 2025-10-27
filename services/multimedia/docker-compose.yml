@@ -1,0 +1,31 @@
+services:
+  suwayomi_server:
+    image: ghcr.io/suwayomi/suwayomi-server:stable
+    container_name: Suwayomi-Server
+    volumes: # The order matters! Make sure the downloads is first in the volume list or it will not work!
+      - ${ROOT_PATH}/mangas/downloads:/home/suwayomi/.local/share/Tachidesk/downloads
+      - ${ROOT_PATH}/mangas/files:/home/suwayomi/.local/share/Tachidesk
+    environment:
+      - SOCKS_PROXY_ENABLED=true
+      - SOCKS_PROXY_VERSION=5
+      - SOCKS_PROXY_HOST=tor
+      - SOCKS_PROXY_PORT=9050
+    ports:
+      - 4568:4567
+    restart: unless-stopped
+    networks:
+      - no-internet
+      - traefik
+    labels:
+      - "homepage.group=Utilities"
+      - "homepage.name=suwayomi_server"
+      - "homepage.icon=suwayomi.png"
+      - "homepage.href=https://suwayomi_server.loc.ovh/"
+      - "homepage.description=Serveur de manga"
+      - "homepage.weight=1"
+      - "traefik.enable=true"
+      - "traefik.http.routers.suwayomi_server.rule=Host(`suwayomi_server.loc.ovh`)"
+      - "traefik.http.routers.suwayomi_server.entrypoints=web,websecure"
+      - "traefik.http.routers.suwayomi_server.tls=true"
+      - "traefik.http.services.suwayomi_server.loadbalancer.server.port=2283"
+
