@@ -27,4 +27,7 @@ services:
       - "traefik.http.routers.suwayomi_server.entrypoints=web,websecure"
       - "traefik.http.routers.suwayomi_server.tls=true"
       - "traefik.http.services.suwayomi_server.loadbalancer.server.port=4567"
+      - "traefik.http.routers.uwayomi_server.middlewares=uwayomi_server-auth"
+      - "traefik.http.middlewares.uwayomi_server-auth.basicauth.usersFile=/app/config/.htpasswd"
+      - "traefik.http.middlewares.uwayomi_server-auth.basicauth.realm=Espace sécurisé"
 
