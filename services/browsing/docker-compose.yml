@@ -35,6 +35,8 @@ services:
     image: ghcr.io/veka-server/docker-surf-no-vnc:main
     container_name: browser-tor-novnc
     restart: unless-stopped
+    volumes:
+      - ${ROOT_PATH}/mangas/local:/localdownload
     networks:
       - no-internet
       - traefik
