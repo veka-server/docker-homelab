@@ -36,7 +36,7 @@ services:
     container_name: browser-tor-novnc
     restart: unless-stopped
     volumes:
-      - ${ROOT_PATH}/mangas/local:/localdownload
+      - ${ROOT_PATH}/download-tor:/localdownload
     networks:
       - no-internet
       - traefik

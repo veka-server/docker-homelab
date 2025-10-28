@@ -5,6 +5,7 @@ services:
     volumes: # The order matters! Make sure the downloads is first in the volume list or it will not work!
       - ${ROOT_PATH}/mangas/downloads:/home/suwayomi/.local/share/Tachidesk/downloads
       - ${ROOT_PATH}/mangas/files:/home/suwayomi/.local/share/Tachidesk
+      - ${ROOT_PATH}/mangas/local:/localmangas
     environment:
       - SOCKS_PROXY_ENABLED=true
       - SOCKS_PROXY_VERSION=5
