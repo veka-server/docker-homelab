@@ -61,7 +61,7 @@ services:
       - searxng-data:/var/cache/searxng:rw
     environment:
       - SEARXNG_BASE_URL=https://searxng.loc.ovh/
-    network:
+    networks:
       - traefik
       - custom-network
     logging:
