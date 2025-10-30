@@ -34,6 +34,11 @@ services:
       - "traefik.http.routers.homepage.tls=true"
       - "traefik.http.services.homepage.loadbalancer.server.port=3000"
 
+      # Middleware qui retourne une erreur 403
+      - "traefik.http.middlewares.block-api-releases.replacepathregex.regex=^/api/releases(.*)"
+      - "traefik.http.middlewares.block-api-releases.replacepathregex.replacement=/blocked"
+      
+
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
