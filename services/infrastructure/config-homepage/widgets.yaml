@@ -8,9 +8,10 @@
     refresh: 500 # optional, in ms
 
 - search:
-    provider: custom
+    provider: searxng
     focus: true # Optional, will set focus to the search bar on page load
     url: https://searxng.loc.ovh?q=
+    placeholder: "Rechercher sur SearxNG ..."
     suggestionURL: https://searxng.loc.ovh/autocompleter?q=
     showSearchSuggestions: true
     target: _blank
