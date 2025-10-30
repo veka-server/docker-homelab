@@ -51,3 +51,29 @@ services:
       - "traefik.http.routers.browser-tor-novnc.entrypoints=web,websecure"
       - "traefik.http.routers.browser-tor-novnc.tls=true"
       - "traefik.http.services.browser-tor-novnc.loadbalancer.server.port=6080"
+
+  searxng:
+    container_name: searxng
+    image: ghcr.io/searxng/searxng:latest
+    restart: unless-stopped
+    volumes:
+      - ./searxng:/etc/searxng:rw
+      - searxng-data:/var/cache/searxng:rw
+    environment:
+      - SEARXNG_BASE_URL=https://${SEARXNG_HOSTNAME:-localhost}/
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+    labels:
+      - "homepage.group=Browsing"
+      - "homepage.name=SearXNG"
+      - "homepage.href=https://searxng.loc.ovh/vnc.html"
+      - "homepage.icon=searxng.png"
+      - "homepage.description=searxng"
+      - "traefik.enable=true"
+      - "traefik.http.routers.searxng.rule=Host(`searxng.loc.ovh`)"
+      - "traefik.http.routers.searxng.entrypoints=web,websecure"
+      - "traefik.http.routers.searxng.tls=true"
+      - "traefik.http.services.searxng.loadbalancer.server.port=8080"
