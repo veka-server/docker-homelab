@@ -77,3 +77,7 @@ services:
       - "traefik.http.routers.searxng.entrypoints=web,websecure"
       - "traefik.http.routers.searxng.tls=true"
       - "traefik.http.services.searxng.loadbalancer.server.port=8080"
+
+      
+volumes:
+  searxng-data:
