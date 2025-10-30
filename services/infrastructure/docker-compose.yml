@@ -34,6 +34,15 @@ services:
       - "traefik.http.routers.homepage.tls=true"
       - "traefik.http.services.homepage.loadbalancer.server.port=3000"
 
+      - "traefik.http.routers.homepage-block.rule=Host(`hub.loc.ovh`) && PathPrefix(`/api/releases`)"
+      - "traefik.http.routers.homepage-block.priority=100"
+      - "traefik.http.routers.homepage-block.entrypoints=web,websecure"
+      - "traefik.http.routers.homepage-block.tls=true"
+      - "traefik.http.routers.homepage-block.middlewares=block"
+      - "traefik.http.middlewares.block.customresponse.statuscode=403"
+      - "traefik.http.middlewares.block.customresponse.contenttype=text/plain"
+      - "traefik.http.middlewares.block.customresponse.body=Forbidden"
+
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
