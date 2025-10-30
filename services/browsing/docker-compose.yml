@@ -69,7 +69,7 @@ services:
     labels:
       - "homepage.group=Browsing"
       - "homepage.name=SearXNG"
-      - "homepage.href=https://searxng.loc.ovh/vnc.html"
+      - "homepage.href=https://searxng.loc.ovh"
       - "homepage.icon=searxng.png"
       - "homepage.description=searxng"
       - "traefik.enable=true"
