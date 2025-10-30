@@ -8,5 +8,7 @@
     refresh: 500 # optional, in ms
 
 - search:
-    provider: duckduckgo
+    provider: searxng
+    url: https://searxng.loc.ovh
+    placeholder: "Rechercher sur SearxNG ..."
     target: _blank
