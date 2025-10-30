@@ -1,4 +1,5 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/settings/
 
+hideVersion: true
 disableUpdateCheck: true
