@@ -9,6 +9,8 @@
 
 - search:
     provider: searxng
-    url: https://searxng.loc.ovh
+    url: https://searxng.loc.ovh?q=
+    suggestionURL: https://searxng.loc.ovh/autocompleter?q=
     placeholder: "Rechercher sur SearxNG ..."
+    showSearchSuggestions: true
     target: _blank
