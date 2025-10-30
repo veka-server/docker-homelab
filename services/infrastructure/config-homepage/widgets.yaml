@@ -10,5 +10,6 @@
 - search:
     provider: searxng
     focus: true # Optional, will set focus to the search bar on page load
-    url: https://searxng.loc.ovh?q=
+#    url: https://searxng.loc.ovh?q=
+    url: https://google.fr?q=
     target: _blank
