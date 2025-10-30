@@ -2,7 +2,7 @@
 # https://gethomepage.dev/configs/settings/
 
 # pour une raisonn inconnue si je ne met pas le titre les autres variable sont ignoré
-title: test
+title: Hub
 
 hideVersion: true
 disableUpdateCheck: true
