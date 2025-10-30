@@ -19,7 +19,6 @@ services:
       - HOMEPAGE_VAR_TITLE=Dashboard_de_test
       - HOMEPAGE_DOCKER=1
       - DOCKER_HOST=unix:///var/run/docker.sock
-      - HOMEPAGE_CHECK=0
     networks:
       - no-internet
       - traefik

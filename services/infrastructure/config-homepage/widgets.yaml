@@ -9,8 +9,9 @@
 
 - search:
     provider: searxng
-    url: https://searxng.loc.ovh
-    suggestionURL: https://searxng.loc.ovh/autocompleter?q=
-    placeholder: "Rechercher sur SearxNG ..."
-    showSearchSuggestions: true
+    focus: true # Optional, will set focus to the search bar on page load
+    url: https://searxng.loc.ovh?q=
+#    placeholder: "Rechercher sur SearxNG ..."
+#    suggestionURL: https://searxng.loc.ovh/autocompleter?q=
+#    showSearchSuggestions: true
     target: _blank
