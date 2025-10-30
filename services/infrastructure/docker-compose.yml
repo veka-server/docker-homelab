@@ -34,22 +34,18 @@ services:
 #      - "traefik.http.routers.homepage.tls=true"
 #      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
 
-      # Middleware qui retourne une erreur 403
-      - "traefik.http.middlewares.block-api-releases.replacepathregex.regex=^/api/releases(.*)"
-      - "traefik.http.middlewares.block-api-releases.replacepathregex.replacement=/blocked"
-      
-      # Routeur pour /api/releases -> erreur
-      - "traefik.http.routers.homepage-block.rule=Host(`hub.loc.ovh`) && Path(`/api/releases`)"
-      - "traefik.http.routers.homepage-block.entrypoints=web,websecure"
-      - "traefik.http.routers.homepage-block.tls=true"
-      - "traefik.http.services.homepage-block.loadbalancer.server.port=3000"
-      - "traefik.http.routers.homepage-block.middlewares=block-api-releases@docker"
-      
-      # Routeur normal pour le reste
       - "traefik.http.routers.homepage.rule=Host(`hub.loc.ovh`)"
       - "traefik.http.routers.homepage.entrypoints=web,websecure"
       - "traefik.http.routers.homepage.tls=true"
       - "traefik.http.services.homepage.loadbalancer.server.port=3000"
+      
+      # Middleware pour bloquer /api/releases - retourne 403
+      - "traefik.http.middlewares.block-api.chain.middlewares=check-path@docker"
+      - "traefik.http.middlewares.check-path.replacepathregex.regex=^/api/releases"
+      - "traefik.http.middlewares.check-path.replacepathregex.replacement=/dev/null"
+      
+      # Appliquer le middleware
+      - "traefik.http.routers.homepage.middlewares=block-api@docker"
 
   watchtower:
     image: containrrr/watchtower:latest
